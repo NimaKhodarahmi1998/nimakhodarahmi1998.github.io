@@ -2,6 +2,22 @@
 
 A clean, responsive single-page portfolio built with plain HTML, CSS, and JavaScript — no build step, no dependencies.
 
+**🌐 Live at:** https://nimakhodarahmi1998.github.io/
+
+## Updating the live site
+
+It's hosted on GitHub Pages from the `main` branch. Any push auto-deploys (~1 min):
+
+```bash
+cd portfolio
+git add -A
+git commit -m "Update content"
+git push
+```
+
+> Want a custom domain later (e.g. `nimakhodarahmi.dev`)? Buy it from any registrar,
+> add GitHub Pages' DNS records, then set it under Repo → Settings → Pages → Custom domain.
+
 ## Preview locally
 
 Just open `index.html` in your browser, or run a tiny local server:
