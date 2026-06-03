@@ -1,149 +1,162 @@
-// ===== Project data — edit this array to add/remove projects =====
-const projects = [
-  {
-    icon: "🌸",
-    title: "Whispers of the Garden",
-    desc: "A gamified experience built around Persian poetry. Grow as you learn to live the slow, nourishing Persian life through the verses of the great poets — wrapped in hand-drawn illustrations inspired by real ancient Persian gardens.",
-    tags: ["Swift", "SwiftUI", "iOS", "Game Design"],
-    code: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden",
-    demo: "",
-  },
-  {
-    icon: "⏱️",
-    title: "Pomero",
-    desc: "A focus & productivity app for iOS. A clean, native take on the Pomodoro technique built with Swift and SwiftUI.",
-    tags: ["Swift", "SwiftUI", "iOS"],
-    code: "https://github.com/NimaKhodarahmi1998/app-Pomero",
-    demo: "",
-  },
-  {
-    icon: "📱",
-    title: "NextG",
-    desc: "An iOS app built with Swift at the Apple Developer Academy. A work in progress — check the repo for the latest.",
-    tags: ["Swift", "iOS"],
-    code: "https://github.com/NimaKhodarahmi1998/app-NextG",
-    demo: "",
-  },
+// ===== Skills — edit this list (icon = key in ICONS, js/icons.js) =====
+const skills = [
+  { name: "Swift", icon: "swift" },
+  { name: "SwiftUI", icon: "swiftui" },
+  { name: "Xcode", icon: "xcode" },
+  { name: "UIKit", icon: "uikit" },
+  { name: "Git", icon: "git" },
+  { name: "Figma", icon: "figma" },
+  { name: "Photoshop", icon: "photoshop" },
+  { name: "Illustrator", icon: "illustrator" },
+  { name: "InDesign", icon: "indesign" },
+  { name: "UI/UX Design", icon: "uiux" },
 ];
 
-// ===== Experience timeline — most recent first =====
+// ===== Links — edit this list =====
+const links = [
+  { name: "GitHub", icon: "github", url: "https://github.com/NimaKhodarahmi1998" },
+  // { name: "LinkedIn", icon: "linkedin", url: "PASTE-YOUR-LINKEDIN-URL" }, // add your URL to re-enable
+  { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/nimakhodarahmi1998/" },
+  { name: "Email", icon: "mail", url: "mailto:7798.nima@gmail.com" },
+];
+
+// ===== Languages (pct = bar fill) =====
+const languages = [
+  { name: "Persian", level: "Native", pct: 100 },
+  { name: "English", level: "C2", pct: 95 },
+  { name: "Italian", level: "B2", pct: 65 },
+  { name: "Spanish", level: "A2", pct: 30 },
+];
+
+// ===== Experience (most recent first) =====
 const experience = [
+  { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025–Now" },
+  { role: "Tourist Guide", org: "Amalfi Coast", period: "2025–Now" },
+  { role: "Guide Writer", org: "TheGamer — Valnet", period: "2024" },
+  { role: "Head Critic & Designer", org: "SargarME", period: "2021–24" },
+  { role: "English Teacher", org: "Ministry of Education", period: "2017–23" },
+];
+
+// ===== Selected work — edit this list =====
+const work = [
   {
-    period: "2025 — Present",
-    role: "Junior iOS Developer",
-    org: "Apple Developer Academy @ UNINA · Self-employed",
-    place: "Naples, Italy",
-    desc: "Learning Swift & SwiftUI and building native iOS apps from concept to MVP.",
+    name: "Whispers of the Garden",
+    desc: "Gamified Persian poetry, in hand-drawn gardens.",
+    url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden",
   },
   {
-    period: "2025 — Present",
-    role: "Tourist Guide",
-    org: "Di Sarno Car Service",
-    place: "Amalfi Coast, Italy",
-    desc: "Guiding travellers from around the world along the Amalfi Coast.",
+    name: "Pomero",
+    desc: "A clean, native Pomodoro timer for iOS.",
+    url: "https://github.com/NimaKhodarahmi1998/app-Pomero",
   },
   {
-    period: "2024",
-    role: "Guide Writer",
-    org: "TheGamer — Valnet Inc.",
-    place: "Montreal, Canada (remote)",
-    desc: "Wrote guides for one of the fastest-growing online video-game magazines.",
-  },
-  {
-    period: "2021 — 2024",
-    role: "Head Critic, Journalist & Graphic Designer",
-    org: "SargarME Magazine — Sourena Games",
-    place: "Tehran, Iran (remote)",
-    desc: "Rose to head critic of the games section in ~6 months at Iran's #2 tech magazine, also writing and designing.",
-  },
-  {
-    period: "2017 — 2023",
-    role: "English Teacher",
-    org: "Ministry of Education & Mohassel Institute",
-    place: "Dezful, Iran",
-    desc: "Taught English to teenagers, including in less-developed villages outside Dezful.",
+    name: "NextG",
+    desc: "An iOS app built at the Apple Developer Academy.",
+    url: "https://github.com/NimaKhodarahmi1998/app-NextG",
   },
 ];
 
-// ===== Render project cards =====
-function renderProjects() {
-  const grid = document.getElementById("projects-grid");
-  if (!grid) return;
-  grid.innerHTML = projects
-    .map(
-      (p) => `
-    <article class="card">
-      <div class="card__top">
-        <span class="card__icon">${p.icon}</span>
-        <span class="card__links">
-          ${p.code ? `<a href="${p.code}" target="_blank" rel="noopener">Code</a>` : ""}
-          ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener">Demo</a>` : ""}
-        </span>
-      </div>
-      <h3 class="card__title">${p.title}</h3>
-      <p class="card__desc">${p.desc}</p>
-      <div class="card__tags">
-        ${p.tags.map((t) => `<span class="card__tag">${t}</span>`).join("")}
-      </div>
-    </article>`
-    )
+const icon = (key) => `<span class="ico">${ICONS[key] || ""}</span>`;
+
+function renderSkills() {
+  const el = document.getElementById("skills");
+  if (el)
+    el.innerHTML = skills
+      .map((s) => `<li>${icon(s.icon)}${s.name}</li>`)
+      .join("");
+}
+
+function renderLinks() {
+  const el = document.getElementById("links");
+  if (!el) return;
+  el.innerHTML = links
+    .map((l) => {
+      const ext = l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+      return `<a href="${l.url}"${ext}>${icon(l.icon)}${l.name}</a>`;
+    })
     .join("");
 }
 
-// ===== Render experience timeline =====
-function renderExperience() {
-  const list = document.getElementById("timeline");
+function renderWork() {
+  const list = document.getElementById("work-list");
   if (!list) return;
-  list.innerHTML = experience
+  list.innerHTML = work
     .map(
-      (e) => `
-    <li class="timeline__item">
-      <span class="timeline__period">${e.period}</span>
-      <div class="timeline__body">
-        <h3 class="timeline__role">${e.role}</h3>
-        <p class="timeline__org">${e.org} · <span>${e.place}</span></p>
-        <p class="timeline__desc">${e.desc}</p>
-      </div>
+      (w) => `
+    <li class="work__item">
+      <a class="work__link" href="${w.url}" target="_blank" rel="noopener">
+        <span class="work__top">
+          <span class="work__name">${w.name}</span>
+          <span class="work__arrow">↗</span>
+        </span>
+        <span class="work__desc">${w.desc}</span>
+      </a>
     </li>`
     )
     .join("");
 }
 
-// ===== Theme toggle (persists in localStorage) =====
+function renderLanguages() {
+  const el = document.getElementById("languages");
+  if (!el) return;
+  el.innerHTML = languages
+    .map(
+      (l) => `
+    <li class="lang">
+      <div class="lang__top">
+        <span class="lang__name">${l.name}</span>
+        <span class="lang__lvl">${l.level}</span>
+      </div>
+      <div class="lang__bar"><span style="width:${l.pct}%"></span></div>
+    </li>`
+    )
+    .join("");
+}
+
+function renderPath() {
+  const el = document.getElementById("path");
+  if (!el) return;
+  el.innerHTML = experience
+    .map(
+      (e) => `
+    <li class="path__item">
+      <span class="path__role">${e.role}</span>
+      <span class="path__meta">${e.org}<span class="path__period">${e.period}</span></span>
+    </li>`
+    )
+    .join("");
+}
+
+function renderCV() {
+  const el = document.getElementById("cv");
+  if (el) el.innerHTML = `${icon("download")}Download CV`;
+}
+
+// ===== Theme (monochrome) =====
 function initTheme() {
   const toggle = document.getElementById("theme-toggle");
-  const icon = toggle?.querySelector(".theme-toggle__icon");
   const stored = localStorage.getItem("theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const initial = stored || (prefersDark ? "dark" : "light");
-
-  applyTheme(initial);
+  apply(stored || (prefersDark ? "dark" : "light"));
 
   toggle?.addEventListener("click", () => {
-    const next =
-      document.documentElement.getAttribute("data-theme") === "dark"
-        ? "light"
-        : "dark";
-    applyTheme(next);
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    apply(next);
     localStorage.setItem("theme", next);
   });
 
-  function applyTheme(theme) {
+  function apply(theme) {
     document.documentElement.setAttribute("data-theme", theme);
-    if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
+    if (toggle) toggle.textContent = theme === "dark" ? "Light" : "Dark";
   }
 }
 
-// ===== Footer year =====
-function setYear() {
-  const el = document.getElementById("year");
-  if (el) el.textContent = new Date().getFullYear();
-}
-
-// ===== Init =====
 document.addEventListener("DOMContentLoaded", () => {
-  renderProjects();
-  renderExperience();
+  renderSkills();
+  renderLinks();
+  renderWork();
+  renderLanguages();
+  renderPath();
+  renderCV();
   initTheme();
-  setYear();
 });
