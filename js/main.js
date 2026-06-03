@@ -15,7 +15,7 @@ const skills = [
 // ===== Links — edit this list =====
 const links = [
   { name: "GitHub", icon: "github", url: "https://github.com/NimaKhodarahmi1998" },
-  // { name: "LinkedIn", icon: "linkedin", url: "PASTE-YOUR-LINKEDIN-URL" }, // add your URL to re-enable
+  { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/in/nima-khodarahmi1998/" },
   { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/nimakhodarahmi1998/" },
   { name: "Email", icon: "mail", url: "mailto:7798.nima@gmail.com" },
 ];
