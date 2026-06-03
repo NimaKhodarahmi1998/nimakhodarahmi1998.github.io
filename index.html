@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nima Khodarahmi — iOS Developer & Designer</title>
+  <meta name="description" content="Nima Khodarahmi — iOS developer, designer, and writer based in Naples, Italy. Building expressive apps with Swift & SwiftUI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="nav__brand">NK</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="theme-toggle__icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Hi, my name is</p>
+        <h1 class="hero__title">Nima Khodarahmi.</h1>
+        <h2 class="hero__subtitle">I build expressive apps for Apple platforms.</h2>
+        <p class="hero__lead">
+          I'm an iOS developer and designer based in Naples, Italy, currently learning
+          Swift &amp; SwiftUI at the <strong>Apple Developer Academy @ UNINA</strong>. With a
+          background in writing, journalism, and graphic design, I love building apps that
+          tell a story.
+        </p>
+        <div class="hero__actions">
+          <a href="#projects" class="btn btn--primary">View my work</a>
+          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">01.</span> About me</h2>
+        <div class="about">
+          <div class="about__text">
+            <p>
+              My path to software has been anything but ordinary. I studied English
+              Translation in Iran, then spent years as an English teacher, a journalist
+              and head video-game critic at <em>SargarME</em>, a guide writer at
+              <em>TheGamer</em>, and a freelance graphic designer.
+            </p>
+            <p>
+              Today I'm in Naples pursuing a Master's in Language &amp; Literature for
+              Plurilingualism at <em>Federico II</em>, learning to build iOS apps at the
+              <strong>Apple Developer Academy</strong>, and guiding travellers along the
+              Amalfi Coast on the side. I bring a storyteller's eye and a designer's
+              hands to everything I make.
+            </p>
+            <p>Technologies and tools I work with:</p>
+            <ul class="about__skills">
+              <li>Swift</li>
+              <li>SwiftUI</li>
+              <li>Xcode</li>
+              <li>Adobe Photoshop</li>
+              <li>Adobe Illustrator</li>
+              <li>Adobe InDesign</li>
+            </ul>
+          </div>
+          <div class="about__photo">
+            <div class="about__photo-frame">
+              <img src="assets/profile.jpg" alt="Portrait of Nima Khodarahmi"
+                   onerror="this.style.display='none';this.parentElement.classList.add('about__photo-frame--empty')" />
+              <span class="about__photo-placeholder">Add assets/profile.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">02.</span> Things I've built</h2>
+        <div class="projects" id="projects-grid">
+          <!-- Cards injected by js/main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">03.</span> Where I've been</h2>
+        <ol class="timeline" id="timeline">
+          <!-- Items injected by js/main.js -->
+        </ol>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section--center">
+      <div class="container container--narrow">
+        <h2 class="section__title section__title--center"><span class="section__num">04.</span> Get in touch</h2>
+        <p class="contact__lead">
+          I'm always open to interesting conversations, collaborations, and new
+          opportunities — whether it's an app idea, a design project, or a chat about
+          poetry and games. My inbox is always open.
+        </p>
+        <a href="mailto:7798.nima@gmail.com" class="btn btn--primary">Say hello</a>
+        <div class="contact__socials">
+          <a href="https://github.com/NimaKhodarahmi1998" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+          <a href="https://www.instagram.com/nimakhodarahmi1998/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="mailto:7798.nima@gmail.com" aria-label="Email">Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Designed &amp; built by Nima Khodarahmi · Naples, Italy · <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
