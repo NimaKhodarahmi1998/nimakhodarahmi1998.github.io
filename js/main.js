@@ -37,22 +37,29 @@ const experience = [
   { role: "English Teacher", org: "Ministry of Education", period: "2017–23" },
 ];
 
-// ===== Selected work — edit this list =====
+// ===== Selected work — edit this list (each link: {label, icon, url}) =====
 const work = [
   {
     name: "Whispers of the Garden",
     desc: "Gamified Persian poetry, in hand-drawn gardens.",
-    url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden",
+    links: [
+      { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/whispers-of-the-garden/id6760307230" },
+      { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden" },
+    ],
   },
   {
     name: "Pomero",
     desc: "A clean, native Pomodoro timer for iOS.",
-    url: "https://github.com/NimaKhodarahmi1998/app-Pomero",
+    links: [
+      { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" },
+    ],
   },
   {
     name: "NextG",
     desc: "An iOS app built at the Apple Developer Academy.",
-    url: "https://github.com/NimaKhodarahmi1998/app-NextG",
+    links: [
+      { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-NextG" },
+    ],
   },
 ];
 
@@ -84,13 +91,16 @@ function renderWork() {
     .map(
       (w) => `
     <li class="work__item">
-      <a class="work__link" href="${w.url}" target="_blank" rel="noopener">
-        <span class="work__top">
-          <span class="work__name">${w.name}</span>
-          <span class="work__arrow">↗</span>
-        </span>
-        <span class="work__desc">${w.desc}</span>
-      </a>
+      <h3 class="work__name">${w.name}</h3>
+      <p class="work__desc">${w.desc}</p>
+      <div class="work__links">
+        ${w.links
+          .map(
+            (l) =>
+              `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+          )
+          .join("")}
+      </div>
     </li>`
     )
     .join("");

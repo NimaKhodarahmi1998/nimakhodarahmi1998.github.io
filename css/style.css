@@ -121,15 +121,21 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.18em; color: var(--muted); margin-bottom: 6px;
 }
 .work__list { list-style: none; }
-.work__item { border-top: 1px solid var(--line); }
-.work__link { display: block; padding: 15px 0; transition: padding 0.2s ease; }
-.work__link:hover { padding-left: 8px; }
-.work__top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.work__name { font-size: 1.05rem; font-weight: 600; transition: color 0.2s; }
-.work__link:hover .work__name { color: var(--accent); }
-.work__arrow { color: var(--muted); font-size: 0.85rem; transition: transform 0.2s, color 0.2s; }
-.work__link:hover .work__arrow { transform: translate(2px, -2px); color: var(--accent); }
+.work__item { padding: 15px 0; border-top: 1px solid var(--line); }
+.work__item:first-child { border-top: none; padding-top: 0; }
+.work__name { font-size: 1.05rem; font-weight: 600; }
 .work__desc { margin-top: 4px; font-size: 0.86rem; color: var(--muted); }
+.work__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
+.work__links a {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.78rem; font-weight: 500; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.work__links a:hover { color: var(--accent); border-color: var(--accent); }
+.work__links .ico { width: 13px; height: 13px; }
+.work__arrow { font-size: 0.72rem; transition: transform 0.2s; }
+.work__links a:hover .work__arrow { transform: translate(1px, -1px); }
 
 /* ===== Skills ===== */
 .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
