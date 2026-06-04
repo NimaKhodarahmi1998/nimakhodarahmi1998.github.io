@@ -5,8 +5,11 @@
   --text: #2a2a2a;       /* dark gray */
   --muted: #8c8c8c;      /* gray */
   --line: #e4e4e0;
-  --accent: #ff5a36;     /* hot coral */
-  --accent-soft: rgba(255, 90, 54, 0.14);
+  --accent: #e94e30;     /* coral, deepened for a more grown-up tone */
+  --accent-soft: rgba(233, 78, 48, 0.13);
+  --r-sm: 10px; --r-md: 12px; --r-lg: 20px;
+  --shadow: 0 1px 2px rgba(20, 20, 20, 0.04), 0 8px 24px -16px rgba(20, 20, 20, 0.18);
+  --shadow-hover: 0 2px 4px rgba(20, 20, 20, 0.05), 0 18px 40px -20px rgba(20, 20, 20, 0.26);
 }
 [data-theme="dark"] {
   --bg: #000000;         /* black */
@@ -14,8 +17,10 @@
   --text: #e9e9e9;       /* light gray */
   --muted: #777777;      /* gray */
   --line: #1f1f1f;
-  --accent: #ff6b4a;     /* hot coral (brighter on black) */
-  --accent-soft: rgba(255, 107, 74, 0.2);
+  --accent: #ff6347;     /* coral, brighter on black */
+  --accent-soft: rgba(255, 99, 71, 0.18);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5), 0 22px 48px -22px rgba(0, 0, 0, 0.9);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,7 +45,8 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer; transition: color 0.2s, border-color 0.2s, transform 0.2s;
 }
 .theme-toggle svg { width: 18px; height: 18px; display: block; }
-.theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: rotate(15deg); }
+.theme-toggle { box-shadow: var(--shadow); }
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ===== Split — framed cards grid ===== */
 .split {
@@ -68,12 +74,18 @@ a { color: inherit; text-decoration: none; }
   min-width: 0;          /* let grid items shrink instead of forcing the track wider than the screen */
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: var(--r-lg);
   padding: 20px 22px;
-  transition: border-color 0.25s ease;
+  box-shadow: var(--shadow);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.split > *:hover { border-color: var(--accent); }
+.split > *:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) { .split > *:hover { transform: none; } }
 .split > *:nth-child(1) { animation-delay: 0.04s; }
 .split > *:nth-child(2) { animation-delay: 0.10s; }
 .split > *:nth-child(3) { animation-delay: 0.16s; }
@@ -92,8 +104,8 @@ a { color: inherit; text-decoration: none; }
   perspective: 900px;    /* depth for the cursor tilt */
   /* accent backdrop behind the transparent cutout */
   background:
-    radial-gradient(85% 65% at 50% 116%, var(--accent) 0%, transparent 60%),
-    radial-gradient(60% 50% at 18% 8%, var(--accent-soft) 0%, transparent 65%),
+    radial-gradient(72% 55% at 50% 118%, color-mix(in srgb, var(--accent) 78%, transparent) 0%, transparent 58%),
+    radial-gradient(55% 48% at 18% 8%, var(--accent-soft) 0%, transparent 65%),
     var(--surface);
 }
 .photo img {
@@ -166,14 +178,14 @@ a { color: inherit; text-decoration: none; }
 .work__item:first-child { border-top: none; padding-top: 0; }
 .work__thumb {
   width: 54px; height: 54px; flex: none;
-  border-radius: 13px; overflow: hidden;
+  border-radius: var(--r-md); overflow: hidden;
   display: grid; place-items: center;
   font-size: 1.2rem; font-weight: 700; color: #fff;
   border: 1px solid var(--line);
   box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease;
 }
-.work__item:hover .work__thumb { transform: scale(1.06) rotate(-2deg); }
+.work__item:hover .work__thumb { transform: scale(1.04); }
 .work__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .work__body { flex: 1; min-width: 0; }
 .work__name { font-size: 1.05rem; font-weight: 600; }
@@ -182,7 +194,7 @@ a { color: inherit; text-decoration: none; }
 .work__links a {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 0.78rem; font-weight: 500; color: var(--muted);
-  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px;
+  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 5px 10px;
   transition: color 0.2s, border-color 0.2s;
 }
 .work__links a:hover { color: var(--accent); border-color: var(--accent); }
@@ -200,7 +212,7 @@ a { color: inherit; text-decoration: none; }
 .chips li {
   display: flex; align-items: center; gap: 8px;
   font-size: 0.82rem; color: var(--text);
-  padding: 7px 13px; border: 1px solid var(--line); border-radius: 8px;
+  padding: 7px 13px; border: 1px solid var(--line); border-radius: var(--r-sm);
   transition: border-color 0.2s, color 0.2s;
 }
 .chips li:hover { border-color: var(--accent); color: var(--accent); }
@@ -213,7 +225,7 @@ a { color: inherit; text-decoration: none; }
 .cv {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
   font-size: 0.84rem; font-weight: 600; color: var(--text);
-  border: 1px solid var(--line); border-radius: 11px; padding: 10px 16px;
+  border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 16px;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .cv:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -280,7 +292,7 @@ a { color: inherit; text-decoration: none; }
   width: min(1000px, 100%); max-height: 88vh;
   display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: 20px; overflow: hidden;
+  border-radius: var(--r-lg); overflow: hidden;
   animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .gallery__bar {
@@ -305,7 +317,7 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 .gallery__item {
-  border: 1px solid var(--line); border-radius: 14px;
+  border: 1px solid var(--line); border-radius: var(--r-md);
   overflow: hidden; background: var(--bg);
 }
 .gallery__item img, .gallery__item video {
