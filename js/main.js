@@ -54,7 +54,7 @@ const work = [
   {
     name: "Pomero",
     desc: "A native watchOS app for staying close to the people who matter most.",
-    tint: "linear-gradient(135deg, #ff7a45, #ff2d55)",
+    thumb: "assets/pomero.png",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" },
     ],
