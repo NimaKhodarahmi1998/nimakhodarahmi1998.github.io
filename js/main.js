@@ -38,10 +38,13 @@ const experience = [
 ];
 
 // ===== Selected work — edit this list (each link: {label, icon, url}) =====
+// Each item gets a thumbnail: `thumb` = image path, or `tint` = a CSS gradient
+// behind the app's initial. To use a real screenshot, set `thumb: "assets/<file>"`.
 const work = [
   {
     name: "Whispers of the Garden",
     desc: "Gamified Persian poetry, in hand-drawn gardens.",
+    thumb: "assets/whispers.jpg",
     links: [
       { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/whispers-of-the-garden/id6760307230" },
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden" },
@@ -50,6 +53,7 @@ const work = [
   {
     name: "Pomero",
     desc: "A clean, native Pomodoro timer for iOS.",
+    tint: "linear-gradient(135deg, #ff7a45, #ff2d55)",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" },
     ],
@@ -57,6 +61,7 @@ const work = [
   {
     name: "NextG",
     desc: "An iOS app built at the Apple Developer Academy.",
+    tint: "linear-gradient(135deg, #5b8def, #9b6bff)",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-NextG" },
     ],
@@ -88,21 +93,27 @@ function renderWork() {
   const list = document.getElementById("work-list");
   if (!list) return;
   list.innerHTML = work
-    .map(
-      (w) => `
+    .map((w) => {
+      const thumb = w.thumb
+        ? `<span class="work__thumb"><img src="${w.thumb}" alt="${w.name} icon" loading="lazy" /></span>`
+        : `<span class="work__thumb" style="background:${w.tint}">${w.name[0]}</span>`;
+      return `
     <li class="work__item">
-      <h3 class="work__name">${w.name}</h3>
-      <p class="work__desc">${w.desc}</p>
-      <div class="work__links">
-        ${w.links
-          .map(
-            (l) =>
-              `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
-          )
-          .join("")}
+      ${thumb}
+      <div class="work__body">
+        <h3 class="work__name">${w.name}</h3>
+        <p class="work__desc">${w.desc}</p>
+        <div class="work__links">
+          ${w.links
+            .map(
+              (l) =>
+                `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+            )
+            .join("")}
+        </div>
       </div>
-    </li>`
-    )
+    </li>`;
+    })
     .join("");
 }
 
@@ -117,7 +128,7 @@ function renderLanguages() {
         <span class="lang__name">${l.name}</span>
         <span class="lang__lvl">${l.level}</span>
       </div>
-      <div class="lang__bar"><span style="width:${l.pct}%"></span></div>
+      <div class="lang__bar"><span data-pct="${l.pct}"></span></div>
     </li>`
     )
     .join("");
@@ -157,8 +168,49 @@ function initTheme() {
 
   function apply(theme) {
     document.documentElement.setAttribute("data-theme", theme);
-    if (toggle) toggle.textContent = theme === "dark" ? "Light" : "Dark";
+    if (toggle) {
+      // show the icon for the mode you'd switch TO
+      toggle.innerHTML = theme === "dark" ? ICONS.sun : ICONS.moon;
+      toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    }
   }
+}
+
+// ===== Animate language bars when they scroll into view =====
+function animateLanguages() {
+  const bars = document.querySelectorAll(".lang__bar span");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fill = (el) => { el.style.width = (el.dataset.pct || 0) + "%"; };
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    bars.forEach(fill);
+    return;
+  }
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { fill(e.target); o.unobserve(e.target); }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach((b) => obs.observe(b));
+}
+
+// ===== Subtle cursor-driven tilt on the photo =====
+function initPhotoTilt() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.matchMedia("(hover: none)").matches) return; // skip on touch
+  const card = document.querySelector(".photo");
+  const img = card?.querySelector("img");
+  if (!card || !img) return;
+
+  const MAX = 7; // degrees
+  card.addEventListener("pointermove", (e) => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    img.style.transform =
+      `scale(1.04) rotateX(${(-py * MAX).toFixed(2)}deg) rotateY(${(px * MAX).toFixed(2)}deg)`;
+  });
+  card.addEventListener("pointerleave", () => { img.style.transform = ""; });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -169,4 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPath();
   renderCV();
   initTheme();
+  animateLanguages();
+  initPhotoTilt();
 });
