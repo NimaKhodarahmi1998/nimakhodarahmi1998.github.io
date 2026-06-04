@@ -49,7 +49,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
   padding: 28px 44px;
   display: grid;
-  grid-template-columns: 230px 1.3fr 1fr;
+  grid-template-columns: 300px 1.3fr 1fr;
   grid-template-areas:
     "photo id   work"
     "langs exp  skills";
