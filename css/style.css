@@ -190,9 +190,14 @@ a { color: inherit; text-decoration: none; }
 .work__links a:hover .work__arrow { transform: translate(1px, -1px); }
 
 /* ===== Skills ===== */
-.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chips {
+  list-style: none; margin-top: 4px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 8px;
+}
 .chips li {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 8px;
   font-size: 0.82rem; color: var(--text);
   padding: 7px 13px; border: 1px solid var(--line); border-radius: 8px;
   transition: border-color 0.2s, color 0.2s;
