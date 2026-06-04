@@ -71,6 +71,18 @@
     </section>
   </main>
 
+  <!-- Design gallery overlay -->
+  <div id="gallery" class="gallery" hidden>
+    <div class="gallery__backdrop" data-close></div>
+    <div class="gallery__panel" role="dialog" aria-modal="true" aria-label="Design work">
+      <header class="gallery__bar">
+        <span class="gallery__title">Design work</span>
+        <button class="gallery__close" data-close aria-label="Close gallery">&times;</button>
+      </header>
+      <div class="gallery__grid" id="gallery-grid"></div>
+    </div>
+  </div>
+
   <script src="js/icons.js"></script>
   <script src="js/main.js"></script>
 </body>

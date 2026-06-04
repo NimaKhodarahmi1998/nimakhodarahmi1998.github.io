@@ -15,10 +15,18 @@ const skills = [
 
 // ===== Links — edit this list =====
 const links = [
+  { name: "Design", icon: "procreate", gallery: true },
   { name: "GitHub", icon: "github", url: "https://github.com/NimaKhodarahmi1998" },
   { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/in/nima-khodarahmi1998/" },
   { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/nimakhodarahmi1998/" },
   { name: "Email", icon: "mail", url: "mailto:7798.nima@gmail.com" },
+];
+
+// ===== Design gallery (opens in a full-screen overlay) — add more pieces here =====
+const gallery = [
+  { type: "video", src: "assets/cow-workers.mp4", caption: "Cow Workers Studio — logo animation" },
+  { type: "image", src: "assets/cow-workers-display.png", caption: "Cow Workers Studio — brand lockup" },
+  { type: "image", src: "assets/cow-workers-logo.png", caption: "Cow Workers Studio — mascot", tint: "#5d87a8" },
 ];
 
 // ===== Languages (pct = bar fill) =====
@@ -31,6 +39,7 @@ const languages = [
 
 // ===== Experience (most recent first) =====
 const experience = [
+  { role: "Co-founder, Developer & Designer", org: "Cow Workers Studio", period: "2025–Now" },
   { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025–Now" },
   { role: "Tourist Guide", org: "Amalfi Coast", period: "2025–Now" },
   { role: "Guide Writer", org: "TheGamer — Valnet", period: "2024" },
@@ -42,6 +51,14 @@ const experience = [
 // Each item gets a thumbnail: `thumb` = image path, or `tint` = a CSS gradient
 // behind the app's initial. To use a real screenshot, set `thumb: "assets/<file>"`.
 const work = [
+  {
+    name: "Cow Workers Studio",
+    desc: "Indie game studio I co-founded — branding, posters & game art.",
+    thumb: "assets/cow-workers-icon.png",
+    links: [
+      { label: "Branding & posters", icon: "procreate", gallery: true },
+    ],
+  },
   {
     name: "Whispers of the Garden",
     desc: "Gamified Persian poetry, in hand-drawn gardens.",
@@ -84,6 +101,7 @@ function renderLinks() {
   if (!el) return;
   el.innerHTML = links
     .map((l) => {
+      if (l.gallery) return `<a href="#" class="js-open-gallery">${icon(l.icon)}${l.name}</a>`;
       const ext = l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
       return `<a href="${l.url}"${ext}>${icon(l.icon)}${l.name}</a>`;
     })
@@ -106,9 +124,10 @@ function renderWork() {
         <p class="work__desc">${w.desc}</p>
         <div class="work__links">
           ${w.links
-            .map(
-              (l) =>
-                `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+            .map((l) =>
+              l.gallery
+                ? `<a href="#" class="js-open-gallery">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+                : `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
             )
             .join("")}
         </div>
@@ -214,6 +233,41 @@ function initPhotoTilt() {
   card.addEventListener("pointerleave", () => { img.style.transform = ""; });
 }
 
+// ===== Design gallery overlay =====
+function renderGallery() {
+  const grid = document.getElementById("gallery-grid");
+  if (!grid) return;
+  grid.innerHTML = gallery
+    .map((g) => {
+      const bg = g.tint ? ` style="background:${g.tint}"` : "";
+      const media =
+        g.type === "video"
+          ? `<video src="${g.src}" autoplay muted loop playsinline></video>`
+          : `<img src="${g.src}" alt="${g.caption}" loading="lazy" />`;
+      return `<figure class="gallery__item"${bg}>${media}<figcaption class="gallery__cap">${g.caption}</figcaption></figure>`;
+    })
+    .join("");
+}
+
+function initGallery() {
+  const el = document.getElementById("gallery");
+  if (!el) return;
+  const open = (e) => {
+    if (e) e.preventDefault();
+    el.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+  const close = () => {
+    el.hidden = true;
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll(".js-open-gallery").forEach((b) => b.addEventListener("click", open));
+  el.querySelectorAll("[data-close]").forEach((c) => c.addEventListener("click", close));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !el.hidden) close();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderSkills();
   renderLinks();
@@ -221,7 +275,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderLanguages();
   renderPath();
   renderCV();
+  renderGallery();
   initTheme();
   animateLanguages();
   initPhotoTilt();
+  initGallery();
 });
