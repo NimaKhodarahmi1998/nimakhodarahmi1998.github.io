@@ -5,6 +5,7 @@ const skills = [
   { name: "Xcode", icon: "xcode" },
   { name: "UIKit", icon: "uikit" },
   { name: "Git", icon: "git" },
+  { name: "Procreate", icon: "procreate", featured: true },
   { name: "Figma", icon: "figma" },
   { name: "Photoshop", icon: "photoshop" },
   { name: "Illustrator", icon: "illustrator" },
@@ -74,7 +75,7 @@ function renderSkills() {
   const el = document.getElementById("skills");
   if (el)
     el.innerHTML = skills
-      .map((s) => `<li>${icon(s.icon)}${s.name}</li>`)
+      .map((s) => `<li${s.featured ? ' class="is-featured"' : ""}>${icon(s.icon)}${s.name}</li>`)
       .join("");
 }
 

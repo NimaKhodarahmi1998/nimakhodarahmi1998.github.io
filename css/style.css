@@ -203,6 +203,10 @@ a { color: inherit; text-decoration: none; }
   transition: border-color 0.2s, color 0.2s;
 }
 .chips li:hover { border-color: var(--accent); color: var(--accent); }
+.chips li.is-featured {
+  border-color: var(--accent); color: var(--accent);
+  background: var(--accent-soft); font-weight: 600;
+}
 
 /* ===== CV button ===== */
 .cv {
