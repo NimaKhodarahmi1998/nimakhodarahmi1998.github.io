@@ -25,6 +25,7 @@ const links = [
 // ===== Design gallery (opens in a full-screen overlay) — add more pieces here =====
 const gallery = [
   { type: "video", src: "assets/cow-workers.mp4", caption: "Cow Workers Studio logo animation" },
+  { type: "video", src: "assets/cow-workers-characters.mp4", caption: "Cow Workers Studio characters" },
   { type: "image", src: "assets/cow-workers-display.png", caption: "Cow Workers Studio brand lockup" },
   { type: "image", src: "assets/cow-workers-logo.png", caption: "Cow Workers Studio mascot", tint: "#5d87a8" },
 ];
