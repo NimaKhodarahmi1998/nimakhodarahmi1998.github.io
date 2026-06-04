@@ -65,6 +65,7 @@ a { color: inherit; text-decoration: none; }
 .langs  { grid-area: langs; }
 
 .split > * {
+  min-width: 0;          /* let grid items shrink instead of forcing the track wider than the screen */
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -140,7 +141,7 @@ a { color: inherit; text-decoration: none; }
 }
 .id__place { margin-top: 2px; font-size: 0.92rem; color: var(--muted); }
 .id__bio { margin-top: 14px; font-size: 0.95rem; color: var(--muted); max-width: 42ch; }
-.id__links { display: flex; gap: 22px; margin-top: 18px; font-size: 0.92rem; }
+.id__links { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 18px; font-size: 0.92rem; }
 .id__links a {
   display: inline-flex; align-items: center; gap: 7px;
   color: var(--muted); padding-bottom: 2px;
