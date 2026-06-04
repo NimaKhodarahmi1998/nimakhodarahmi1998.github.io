@@ -24,9 +24,9 @@ const links = [
 
 // ===== Design gallery (opens in a full-screen overlay) — add more pieces here =====
 const gallery = [
-  { type: "video", src: "assets/cow-workers.mp4", caption: "Cow Workers Studio — logo animation" },
-  { type: "image", src: "assets/cow-workers-display.png", caption: "Cow Workers Studio — brand lockup" },
-  { type: "image", src: "assets/cow-workers-logo.png", caption: "Cow Workers Studio — mascot", tint: "#5d87a8" },
+  { type: "video", src: "assets/cow-workers.mp4", caption: "Cow Workers Studio logo animation" },
+  { type: "image", src: "assets/cow-workers-display.png", caption: "Cow Workers Studio brand lockup" },
+  { type: "image", src: "assets/cow-workers-logo.png", caption: "Cow Workers Studio mascot", tint: "#5d87a8" },
 ];
 
 // ===== Languages (pct = bar fill) =====
@@ -42,7 +42,7 @@ const experience = [
   { role: "Co-founder, Developer & Designer", org: "Cow Workers Studio", period: "2025–Now" },
   { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025–Now" },
   { role: "Tourist Guide", org: "Amalfi Coast", period: "2025–Now" },
-  { role: "Guide Writer", org: "TheGamer — Valnet", period: "2024" },
+  { role: "Guide Writer", org: "TheGamer (Valnet)", period: "2024" },
   { role: "Head Critic & Designer", org: "SargarME", period: "2021–24" },
   { role: "English Teacher", org: "Ministry of Education", period: "2017–23" },
 ];
@@ -53,7 +53,7 @@ const experience = [
 const work = [
   {
     name: "Cow Workers Studio",
-    desc: "Indie game studio I co-founded — branding, posters & game art.",
+    desc: "Indie game studio I co-founded. Branding, posters, and game art.",
     thumb: "assets/cow-workers-icon.png",
     links: [
       { label: "Branding & posters", icon: "procreate", gallery: true },
