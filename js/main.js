@@ -34,6 +34,22 @@ const gallery = [
   { type: "image", src: "assets/grabeat-icon-concept.png", caption: "GraBeat — early synthwave icon concept" },
 ];
 
+// ===== Illustrations — standalone art, shown as its own gallery section =====
+// To add a piece: drop the image in assets/ and add a line here, e.g.
+//   { type: "image", src: "assets/my-art.png", caption: "Title of the piece" }
+// (videos work too: { type: "video", src: "assets/clip.mp4", caption: "…" })
+const illustrations = [
+  { type: "video", src: "assets/illustration-garden.mp4", caption: "Whispers of the Garden — the garden, in motion" },
+  { type: "image", src: "assets/illustration-garden-courtyard.jpg", caption: "A Persian courtyard — hand-painted scene art" },
+  { type: "image", src: "assets/illustration-garden-pool.jpg", caption: "Lotuses on the courtyard pool" },
+  { type: "image", src: "assets/illustration-whispers-verse.jpg", caption: "A Khayyam verse, unfurled in the garden" },
+  { type: "image", src: "assets/illustration-lotus.jpg", caption: "Lotus — painted in Procreate" },
+  { type: "image", src: "assets/illustration-lilypad.jpg", caption: "Lily pad" },
+  { type: "image", src: "assets/illustration-bird.jpg", caption: "Songbird" },
+  { type: "image", src: "assets/illustration-owl.jpg", caption: "Owl" },
+  { type: "image", src: "assets/illustration-stage-fright.jpg", caption: "Stage fright — editorial illustration" },
+];
+
 // ===== Languages (pct = bar fill) =====
 const languages = [
   { name: "Persian", level: "Native", pct: 100 },
@@ -317,19 +333,31 @@ function initSkillFilter() {
 }
 
 // ===== Design gallery overlay =====
+function galleryItem(g) {
+  const bg = g.tint ? ` style="background:${g.tint}"` : "";
+  const media =
+    g.type === "video"
+      ? `<video src="${g.src}" autoplay muted loop playsinline></video>`
+      : `<img src="${g.src}" alt="${g.caption}" loading="lazy" />`;
+  return `<figure class="gallery__item"${bg}>${media}<figcaption class="gallery__cap">${g.caption}</figcaption></figure>`;
+}
+
+const gallerySets = { design: gallery, illustrations };
+let galleryTab = "design";
+
 function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   if (!grid) return;
-  grid.innerHTML = gallery
-    .map((g) => {
-      const bg = g.tint ? ` style="background:${g.tint}"` : "";
-      const media =
-        g.type === "video"
-          ? `<video src="${g.src}" autoplay muted loop playsinline></video>`
-          : `<img src="${g.src}" alt="${g.caption}" loading="lazy" />`;
-      return `<figure class="gallery__item"${bg}>${media}<figcaption class="gallery__cap">${g.caption}</figcaption></figure>`;
-    })
-    .join("");
+  grid.innerHTML = (gallerySets[galleryTab] || []).map(galleryItem).join("");
+  grid.scrollTop = 0;
+}
+
+function setGalleryTab(tab) {
+  if (!gallerySets[tab]) return;
+  galleryTab = tab;
+  document.querySelectorAll(".gallery__tab").forEach((t) =>
+    t.classList.toggle("is-active", t.dataset.tab === tab));
+  renderGallery();
 }
 
 function initGallery() {
@@ -345,6 +373,8 @@ function initGallery() {
     document.body.style.overflow = "";
   };
   document.querySelectorAll(".js-open-gallery").forEach((b) => b.addEventListener("click", open));
+  el.querySelectorAll(".gallery__tab").forEach((t) =>
+    t.addEventListener("click", () => setGalleryTab(t.dataset.tab)));
   el.querySelectorAll("[data-close]").forEach((c) => c.addEventListener("click", close));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !el.hidden) close();

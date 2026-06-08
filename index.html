@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
   <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
@@ -81,14 +81,17 @@
     <div class="gallery__backdrop" data-close></div>
     <div class="gallery__panel" role="dialog" aria-modal="true" aria-label="Design work">
       <header class="gallery__bar">
-        <span class="gallery__title">Design work</span>
+        <div class="gallery__tabs" role="tablist">
+          <button class="gallery__tab is-active" data-tab="design" role="tab" type="button">Design work</button>
+          <button class="gallery__tab" data-tab="illustrations" role="tab" type="button">Illustrations</button>
+        </div>
         <button class="gallery__close" data-close aria-label="Close gallery">&times;</button>
       </header>
       <div class="gallery__grid" id="gallery-grid"></div>
     </div>
   </div>
 
-  <script src="js/icons.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/icons.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>
