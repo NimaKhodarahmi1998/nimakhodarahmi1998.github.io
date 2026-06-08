@@ -253,17 +253,29 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
   gap: 8px;
 }
-.chips li {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.82rem; color: var(--text);
+.chips li { display: flex; }
+.chip {
+  flex: 1; display: inline-flex; align-items: center; gap: 8px;
+  font-family: inherit; font-size: 0.82rem; text-align: left; color: var(--text);
   padding: 7px 13px; border: 1px solid var(--line); border-radius: var(--r-sm);
-  transition: border-color 0.2s, color 0.2s;
+  background: transparent; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
-.chips li:hover { border-color: var(--accent); color: var(--accent); }
-.chips li.is-featured {
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chip.is-featured {
   border-color: var(--accent); color: var(--accent);
   background: var(--accent-soft); font-weight: 600;
 }
+.chip.is-active {
+  border-color: var(--accent); color: var(--accent);
+  background: var(--accent-soft); font-weight: 600;
+}
+
+/* Skill-filter spotlight on the work column */
+.work__item, .studio { transition: opacity 0.25s ease, transform 0.25s ease, background 0.3s ease; }
+.work__item.is-dim, .studio.is-dim { opacity: 0.3; }
+.work__item.is-match .work__name { color: var(--accent); }
 
 /* ===== CV button ===== */
 .cv {

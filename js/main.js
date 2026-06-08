@@ -1,16 +1,18 @@
 // ===== Skills — edit this list (icon = key in ICONS, js/icons.js) =====
+// Code skills filter the work list (highlight the projects that use them).
+// Design skills (gallery: true) open the design gallery instead.
 const skills = [
   { name: "Swift", icon: "swift" },
   { name: "SwiftUI", icon: "swiftui" },
   { name: "Xcode", icon: "xcode" },
   { name: "UIKit", icon: "uikit" },
   { name: "Git", icon: "git" },
-  { name: "Procreate", icon: "procreate", featured: true },
-  { name: "Figma", icon: "figma" },
-  { name: "Photoshop", icon: "photoshop" },
-  { name: "Illustrator", icon: "illustrator" },
-  { name: "InDesign", icon: "indesign" },
-  { name: "UI/UX Design", icon: "uiux" },
+  { name: "Procreate", icon: "procreate", featured: true, gallery: true },
+  { name: "Figma", icon: "figma", gallery: true },
+  { name: "Photoshop", icon: "photoshop", gallery: true },
+  { name: "Illustrator", icon: "illustrator", gallery: true },
+  { name: "InDesign", icon: "indesign", gallery: true },
+  { name: "UI/UX Design", icon: "uiux", gallery: true },
 ];
 
 // ===== Links — edit this list =====
@@ -59,6 +61,7 @@ const studio = {
   role: "Co-founder · Developer & Designer",
   desc: "An indie game studio I co-founded. I shape the brand, draw the art, and build the games.",
   thumb: "assets/cow-workers-icon.png",
+  tags: ["Swift", "SwiftUI", "Xcode", "Git", "Procreate", "UI/UX Design"],
   links: [
     { label: "Branding & posters", icon: "procreate", gallery: true },
   ],
@@ -70,6 +73,7 @@ const work = [
     desc: "A two-player camera game — catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand tracking, on iPad & Mac.",
     thumb: "assets/grabeat.png",
     credit: "Graphics & visual design",
+    tags: ["Swift", "SwiftUI", "Xcode", "UIKit", "Git", "Procreate", "UI/UX Design"],
     links: [
       { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
       { label: "Graphics by me", icon: "procreate", gallery: true },
@@ -79,6 +83,7 @@ const work = [
     name: "Whispers of the Garden",
     desc: "Gamified Persian poetry, in hand-drawn gardens.",
     thumb: "assets/whispers.jpg",
+    tags: ["Swift", "SwiftUI", "Xcode", "Git", "UI/UX Design"],
     links: [
       { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/whispers-of-the-garden/id6760307230" },
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden" },
@@ -88,6 +93,7 @@ const work = [
     name: "Pomero",
     desc: "A native watchOS app for staying close to the people who matter most.",
     thumb: "assets/pomero.png",
+    tags: ["Swift", "SwiftUI", "Xcode", "Git"],
     links: [
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" },
     ],
@@ -98,10 +104,18 @@ const icon = (key) => `<span class="ico">${ICONS[key] || ""}</span>`;
 
 function renderSkills() {
   const el = document.getElementById("skills");
-  if (el)
-    el.innerHTML = skills
-      .map((s) => `<li${s.featured ? ' class="is-featured"' : ""}>${icon(s.icon)}${s.name}</li>`)
-      .join("");
+  if (!el) return;
+  el.innerHTML = skills
+    .map((s) => {
+      const cls = ["chip"];
+      if (s.featured) cls.push("is-featured");
+      if (s.gallery) cls.push("js-open-gallery");
+      const attrs = s.gallery
+        ? ` title="See ${s.name} work in the design gallery"`
+        : ` data-skill="${s.name}" title="Show projects built with ${s.name}"`;
+      return `<li><button type="button" class="${cls.join(" ")}"${attrs}>${icon(s.icon)}${s.name}</button></li>`;
+    })
+    .join("");
 }
 
 function renderLinks() {
@@ -119,6 +133,7 @@ function renderLinks() {
 function renderStudio() {
   const el = document.getElementById("studio");
   if (!el) return;
+  el.dataset.tags = (studio.tags || []).join("|");
   const thumb = studio.thumb
     ? `<span class="studio__thumb"><img src="${studio.thumb}" alt="${studio.name} icon" loading="lazy" /></span>`
     : `<span class="studio__thumb" style="background:${studio.tint}">${studio.name[0]}</span>`;
@@ -153,7 +168,7 @@ function renderWork() {
         ? `<span class="work__credit">${icon("procreate")}${w.credit}</span>`
         : "";
       return `
-    <li class="work__item">
+    <li class="work__item" data-tags="${(w.tags || []).join("|")}">
       ${thumb}
       <div class="work__body">
         <h3 class="work__name">${w.name}${credit}</h3>
@@ -269,6 +284,38 @@ function initPhotoTilt() {
   card.addEventListener("pointerleave", () => { img.style.transform = ""; });
 }
 
+// ===== Skill filter — click a code skill to spotlight the work that uses it =====
+function initSkillFilter() {
+  const chips = [...document.querySelectorAll(".chip[data-skill]")];
+  const items = [...document.querySelectorAll(".work__item, .studio")];
+  if (!chips.length || !items.length) return;
+  let active = null;
+
+  const clear = () => {
+    active = null;
+    chips.forEach((c) => c.classList.remove("is-active"));
+    items.forEach((it) => it.classList.remove("is-dim", "is-match"));
+  };
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const skill = chip.dataset.skill;
+      if (active === skill) return clear(); // toggle off
+      active = skill;
+      chips.forEach((c) => c.classList.toggle("is-active", c === chip));
+      items.forEach((it) => {
+        const match = (it.dataset.tags || "").split("|").includes(skill);
+        it.classList.toggle("is-match", match);
+        it.classList.toggle("is-dim", !match);
+      });
+    });
+  });
+
+  // Opening the design gallery or pressing Escape resets the spotlight.
+  document.querySelectorAll(".js-open-gallery").forEach((b) => b.addEventListener("click", clear));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") clear(); });
+}
+
 // ===== Design gallery overlay =====
 function renderGallery() {
   const grid = document.getElementById("gallery-grid");
@@ -317,4 +364,5 @@ document.addEventListener("DOMContentLoaded", () => {
   animateLanguages();
   initPhotoTilt();
   initGallery();
+  initSkillFilter();
 });
