@@ -53,6 +53,14 @@ const experience = [
 // behind the app's initial. To use a real screenshot, set `thumb: "assets/<file>"`.
 const work = [
   {
+    name: "GraBeat",
+    desc: "A two-player camera game — catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand tracking, on iPad & Mac.",
+    thumb: "assets/grabeat.png",
+    links: [
+      { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
+    ],
+  },
+  {
     name: "Cow Workers Studio",
     desc: "Indie game studio I co-founded. Branding, posters, and game art.",
     thumb: "assets/cow-workers-icon.png",
@@ -75,14 +83,6 @@ const work = [
     thumb: "assets/pomero.png",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" },
-    ],
-  },
-  {
-    name: "NextG",
-    desc: "An iOS app built at the Apple Developer Academy.",
-    tint: "linear-gradient(135deg, #5b8def, #9b6bff)",
-    links: [
-      { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-NextG" },
     ],
   },
 ];
