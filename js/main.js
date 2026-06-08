@@ -28,6 +28,8 @@ const gallery = [
   { type: "video", src: "assets/cow-workers-characters.mp4", caption: "Cow Workers Studio characters" },
   { type: "image", src: "assets/cow-workers-display.png", caption: "Cow Workers Studio brand lockup" },
   { type: "image", src: "assets/cow-workers-logo.png", caption: "Cow Workers Studio mascot", tint: "#5d87a8" },
+  { type: "image", src: "assets/grabeat.png", caption: "GraBeat — app icon, the final glitch mark" },
+  { type: "image", src: "assets/grabeat-icon-concept.png", caption: "GraBeat — early synthwave icon concept" },
 ];
 
 // ===== Languages (pct = bar fill) =====
@@ -51,21 +53,26 @@ const experience = [
 // ===== Selected work — edit this list (each link: {label, icon, url}) =====
 // Each item gets a thumbnail: `thumb` = image path, or `tint` = a CSS gradient
 // behind the app's initial. To use a real screenshot, set `thumb: "assets/<file>"`.
+// The studio is shown as a featured banner above the project list.
+const studio = {
+  name: "Cow Workers Studio",
+  role: "Co-founder · Developer & Designer",
+  desc: "An indie game studio I co-founded. I shape the brand, draw the art, and build the games.",
+  thumb: "assets/cow-workers-icon.png",
+  links: [
+    { label: "Branding & posters", icon: "procreate", gallery: true },
+  ],
+};
+
 const work = [
   {
     name: "GraBeat",
     desc: "A two-player camera game — catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand tracking, on iPad & Mac.",
     thumb: "assets/grabeat.png",
+    credit: "Graphics & visual design",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
-    ],
-  },
-  {
-    name: "Cow Workers Studio",
-    desc: "Indie game studio I co-founded. Branding, posters, and game art.",
-    thumb: "assets/cow-workers-icon.png",
-    links: [
-      { label: "Branding & posters", icon: "procreate", gallery: true },
+      { label: "Graphics by me", icon: "procreate", gallery: true },
     ],
   },
   {
@@ -109,6 +116,31 @@ function renderLinks() {
     .join("");
 }
 
+function renderStudio() {
+  const el = document.getElementById("studio");
+  if (!el) return;
+  const thumb = studio.thumb
+    ? `<span class="studio__thumb"><img src="${studio.thumb}" alt="${studio.name} icon" loading="lazy" /></span>`
+    : `<span class="studio__thumb" style="background:${studio.tint}">${studio.name[0]}</span>`;
+  el.innerHTML = `
+    ${thumb}
+    <div class="studio__body">
+      <p class="studio__tag">Studio</p>
+      <h3 class="studio__name">${studio.name}</h3>
+      <p class="studio__role">${studio.role}</p>
+      <p class="studio__desc">${studio.desc}</p>
+      <div class="work__links">
+        ${studio.links
+          .map((l) =>
+            l.gallery
+              ? `<a href="#" class="js-open-gallery">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+              : `<a href="${l.url}" target="_blank" rel="noopener">${icon(l.icon)}${l.label}<span class="work__arrow">↗</span></a>`
+          )
+          .join("")}
+      </div>
+    </div>`;
+}
+
 function renderWork() {
   const list = document.getElementById("work-list");
   if (!list) return;
@@ -117,11 +149,14 @@ function renderWork() {
       const thumb = w.thumb
         ? `<span class="work__thumb"><img src="${w.thumb}" alt="${w.name} icon" loading="lazy" /></span>`
         : `<span class="work__thumb" style="background:${w.tint}">${w.name[0]}</span>`;
+      const credit = w.credit
+        ? `<span class="work__credit">${icon("procreate")}${w.credit}</span>`
+        : "";
       return `
     <li class="work__item">
       ${thumb}
       <div class="work__body">
-        <h3 class="work__name">${w.name}</h3>
+        <h3 class="work__name">${w.name}${credit}</h3>
         <p class="work__desc">${w.desc}</p>
         <div class="work__links">
           ${w.links
@@ -272,6 +307,7 @@ function initGallery() {
 document.addEventListener("DOMContentLoaded", () => {
   renderSkills();
   renderLinks();
+  renderStudio();
   renderWork();
   renderLanguages();
   renderPath();

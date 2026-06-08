@@ -3,7 +3,7 @@
   --bg: #f2f2f0;         /* soft gray page */
   --surface: #ffffff;    /* card */
   --text: #2a2a2a;       /* dark gray */
-  --muted: #8c8c8c;      /* gray */
+  --muted: #243352;      /* dark navy blue (was gray, for contrast) */
   --line: #e4e4e0;
   --accent: #e94e30;     /* coral, deepened for a more grown-up tone */
   --accent-soft: rgba(233, 78, 48, 0.13);
@@ -170,6 +170,41 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.18em; color: var(--muted); margin-bottom: 6px;
 }
+.work__sublabel {
+  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--muted);
+  margin: 18px 0 8px;
+}
+
+/* Featured studio banner — set apart from the project list */
+.studio {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 16px; border-radius: var(--r-lg);
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+}
+.studio__thumb {
+  width: 64px; height: 64px; flex: none;
+  border-radius: var(--r-md); overflow: hidden;
+  display: grid; place-items: center;
+  font-size: 1.4rem; font-weight: 700; color: #fff;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.55);
+  transition: transform 0.3s ease;
+}
+.studio:hover .studio__thumb { transform: scale(1.04); }
+.studio__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.studio__body { flex: 1; min-width: 0; }
+.studio__tag {
+  display: inline-block; font-size: 0.64rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--accent); padding: 3px 8px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--accent);
+  margin-bottom: 7px;
+}
+.studio__name { font-size: 1.2rem; font-weight: 700; }
+.studio__role { margin-top: 2px; font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+.studio__desc { margin-top: 6px; font-size: 0.88rem; color: var(--muted); max-width: 46ch; }
+
 .work__list { list-style: none; }
 .work__item {
   display: flex; gap: 14px; align-items: flex-start;
@@ -189,6 +224,15 @@ a { color: inherit; text-decoration: none; }
 .work__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .work__body { flex: 1; min-width: 0; }
 .work__name { font-size: 1.05rem; font-weight: 600; }
+.work__credit {
+  display: inline-flex; align-items: center; gap: 5px;
+  vertical-align: middle; margin-left: 9px;
+  font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent); padding: 3px 8px; border-radius: 999px;
+  background: var(--accent-soft);
+}
+.work__credit .ico { width: 11px; height: 11px; }
 .work__desc { margin-top: 4px; font-size: 0.86rem; color: var(--muted); }
 .work__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
 .work__links a {
