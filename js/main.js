@@ -2,17 +2,21 @@
 //  DATA
 // ============================================================
 const skills = [
+  // Core strengths: highlighted
+  { name: "SwiftUI", icon: "swiftui", featured: true },
+  { name: "Human Interface Guidelines", icon: "hig", featured: true },
+  { name: "Accessibility", icon: "accessibility", featured: true },
+  { name: "UI/UX Design", icon: "uiux", featured: true },
+  { name: "Procreate", icon: "procreate", featured: true },
+  // Supporting skills
   { name: "Swift", icon: "swift" },
-  { name: "SwiftUI", icon: "swiftui" },
   { name: "Xcode", icon: "xcode" },
   { name: "UIKit", icon: "uikit" },
   { name: "Git", icon: "git" },
-  { name: "Procreate", icon: "procreate", featured: true },
   { name: "Figma", icon: "figma" },
   { name: "Photoshop", icon: "photoshop" },
   { name: "Illustrator", icon: "illustrator" },
   { name: "InDesign", icon: "indesign" },
-  { name: "UI/UX Design", icon: "uiux" },
 ];
 
 const links = [
@@ -22,7 +26,7 @@ const links = [
   { name: "Email", icon: "mail", url: "mailto:7798.nima@gmail.com" },
 ];
 
-// Brand & product design (logos, icons, branding) — shown in a side-scrolling rail
+// Brand & product design (logos, icons, branding): shown in a side-scrolling rail
 const design = [
   { type: "video", src: "assets/cow-workers.mp4", project: "Cow Workers Studio", caption: "Logo animation", tint: "#5d87a8", fit: "cover" },
   { type: "video", src: "assets/cow-workers-characters.mp4", project: "Cow Workers Studio", caption: "Studio characters", tint: "#5d87a8", fit: "cover" },
@@ -44,7 +48,7 @@ const illustrations = [
   { type: "image", src: "assets/illustration-lilypad.jpg", caption: "Lily pad", project: "Whispers of the Garden" },
   { type: "image", src: "assets/illustration-bird.jpg", caption: "Songbird", project: "Whispers of the Garden" },
   { type: "image", src: "assets/illustration-owl.jpg", caption: "Owl", project: "Whispers of the Garden" },
-  { type: "image", src: "assets/illustration-stage-fright.jpg", caption: "Stage fright — editorial illustration", project: "Codle Talks" },
+  { type: "image", src: "assets/illustration-stage-fright.jpg", caption: "Stage fright, an editorial illustration", project: "Codle Talks" },
   { type: "image", src: "assets/cow-workers-logo.png", caption: "The hard-hat cow mascot", project: "Cow Workers Studio", tint: "#5d87a8" },
 ];
 
@@ -56,15 +60,15 @@ const languages = [
 ];
 
 const experience = [
-  { role: "Co-founder, Developer & Designer", org: "Cow Workers Studio", period: "2025 — Now" },
-  { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025 — Now" },
-  { role: "Tourist Guide", org: "Amalfi Coast", period: "2025 — Now" },
+  { role: "Co-founder, Developer & Designer", org: "Cow Workers Studio", period: "2025 to Now" },
+  { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025 to Now" },
+  { role: "Tourist Guide", org: "Amalfi Coast", period: "2025 to Now" },
   { role: "Guide Writer", org: "TheGamer (Valnet)", period: "2024" },
-  { role: "Head Critic & Designer", org: "SargarME", period: "2021 — 24" },
-  { role: "English Teacher", org: "Ministry of Education", period: "2017 — 23" },
+  { role: "Head Critic & Designer", org: "SargarME", period: "2021 to 2024" },
+  { role: "English Teacher", org: "Ministry of Education", period: "2017 to 2023" },
 ];
 
-// Selected work — first item is the studio (featured)
+// Selected work: first item is the studio (featured)
 const work = [
   {
     name: "Cow Workers Studio",
@@ -77,7 +81,7 @@ const work = [
   {
     name: "GraBeat",
     kind: "iPad & Mac game",
-    desc: "A two-player camera game — catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand-tracking. I designed all the graphics.",
+    desc: "A two-player camera game. Catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand-tracking. I designed all the graphics.",
     thumb: "assets/grabeat.png",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
@@ -267,7 +271,7 @@ function animateLanguages() {
 }
 
 // ============================================================
-//  RAILS — click-and-drag horizontal scrolling (wheel scrolls page)
+//  RAILS: click-and-drag horizontal scrolling (wheel scrolls page)
 // ============================================================
 function initRailDrag() {
   document.querySelectorAll(".art-rail").forEach((rail) => {
@@ -295,7 +299,7 @@ function initRailDrag() {
 }
 
 // ============================================================
-//  MOTION — Lenis smooth scroll + GSAP ScrollTrigger
+//  MOTION: Lenis smooth scroll + GSAP ScrollTrigger
 //  (uses gsap.from so content stays visible if GSAP fails to load)
 // ============================================================
 function initMotion() {

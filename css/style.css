@@ -1,5 +1,5 @@
 /* ============================================================
-   TOKENS — warm paper, garden-inspired accents
+   TOKENS: warm paper, garden-inspired accents
    ============================================================ */
 :root {
   --bg: #f4eee1;
@@ -117,9 +117,9 @@ html.lenis, html.lenis body { height: auto; }
    HERO
    ============================================================ */
 .hero {
-  min-height: 100vh; display: grid; align-items: center;
-  grid-template-columns: 1.15fr .85fr; gap: 4vw;
-  padding: 120px 6vw 80px; position: relative;
+  min-height: 100vh; display: grid; align-items: start;
+  grid-template-columns: 1fr 1fr; gap: 4vw;
+  padding: 84px 6vw 80px; position: relative;
 }
 .hero__meta {
   display: inline-flex; align-items: center; gap: 9px;
@@ -162,11 +162,13 @@ html.lenis, html.lenis body { height: auto; }
 }
 .hero__cv:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px var(--accent); }
 .hero__art {
-  position: relative; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden;
-  box-shadow: var(--shadow); border: 1px solid var(--line);
+  position: relative; aspect-ratio: 1/1; overflow: hidden;
+  border-radius: 0 0 90px 90px;
 }
-.hero__art img { width: 100%; height: 112%; object-fit: cover; }
-.hero__art--portrait img { object-position: center 18%; }
+.hero__art img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: center bottom;
+}
 .hero__art figcaption {
   position: absolute; left: 14px; bottom: 12px; z-index: 2;
   font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: #fff;
@@ -234,7 +236,7 @@ html.lenis, html.lenis body { height: auto; }
 .taglink .arr { font-size: .72rem; }
 
 /* ============================================================
-   ART — horizontal rail of illustrations
+   ART: horizontal rail of illustrations
    ============================================================ */
 .art__head { margin-bottom: 8px; }
 .art__hint { font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 16px; display: inline-flex; gap: 8px; align-items: center; }
@@ -262,7 +264,7 @@ html.lenis, html.lenis body { height: auto; }
 .art-card__title { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; }
 
 /* ============================================================
-   DESIGN — brand & product work grid
+   DESIGN: brand & product work grid
    ============================================================ */
 .design-grid {
   display: grid; gap: 18px; margin-top: 40px;
@@ -277,7 +279,7 @@ html.lenis, html.lenis body { height: auto; }
 .dcard__cap { padding: 10px 12px; font-size: .76rem; color: var(--muted); border-top: 1px solid var(--line); }
 
 /* ============================================================
-   CAPABILITIES — skills / experience / languages
+   CAPABILITIES: skills / experience / languages
    ============================================================ */
 .caps { background: var(--bg-2); }
 .caps__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; margin-top: 40px; }
@@ -286,9 +288,8 @@ html.lenis, html.lenis body { height: auto; }
 .chip {
   display: inline-flex; align-items: center; gap: 8px; font-size: .86rem;
   padding: 9px 15px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--surface); transition: border-color .2s, color .2s, transform .2s;
+  background: var(--surface); cursor: default;
 }
-.chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .chip.is-featured { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); font-weight: 600; }
 .chip .ico { width: 15px; height: 15px; }
 .path { list-style: none; }
