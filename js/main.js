@@ -35,7 +35,7 @@ const design = [
   { type: "image", src: "assets/grabeat.png", project: "GraBeat", caption: "Final glitch icon" },
   { type: "image", src: "assets/grabeat-icon-concept.png", project: "GraBeat", caption: "Early concept" },
   { type: "image", src: "assets/whispers-icon.png", project: "Whispers of the Garden", caption: "App icon" },
-  { type: "image", src: "assets/pomero-icon.png", project: "Pomero", caption: "App icon" },
+  { type: "image", src: "assets/magrana-icon.png", project: "Magrana", caption: "App icon" },
 ];
 
 // Hand-drawn illustrations (the centrepiece)
@@ -99,11 +99,11 @@ const work = [
     ],
   },
   {
-    name: "Pomero",
+    name: "Magrana",
     kind: "watchOS",
     desc: "A native watchOS app for staying close to the people who matter most.",
-    thumb: "assets/pomero.png",
-    links: [{ label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Pomero" }],
+    thumb: "assets/magrana.png",
+    links: [{ label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Magrana" }],
   },
 ];
 
