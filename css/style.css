@@ -46,6 +46,14 @@ a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; }
 ::selection { background: var(--accent); color: #fff; }
 
+/* Subtle paper grain over everything (warm, tactile depth) */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] body::after { opacity: .055; }
+
 /* Lenis */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -117,10 +125,37 @@ html.lenis, html.lenis body { height: auto; }
    HERO
    ============================================================ */
 .hero {
-  min-height: 100vh; display: grid; align-items: start;
-  grid-template-columns: 1fr 1fr; gap: 4vw;
-  padding: 84px 6vw 80px; position: relative;
+  min-height: 100vh; display: flex; align-items: flex-start;
+  padding: 100px 16px 56px; position: relative;
 }
+/* Soft accent glow for ambient depth around the box */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(50% 50% at 16% 28%, var(--accent-soft), transparent 70%),
+    radial-gradient(48% 46% at 90% 14%, color-mix(in srgb, var(--ink) 12%, transparent), transparent 72%);
+}
+
+/* The whole hero lives in one interactive box */
+.hero__box {
+  position: relative; z-index: 1; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(24px, 5vw, 80px);
+  align-items: center; padding: clamp(24px, 3vw, 48px);
+  border: 1px solid var(--line); border-radius: 28px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--surface) 65%, var(--bg)), var(--bg));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+/* Cursor-following light that recolors the content under it */
+.hero__box::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(150px 150px at var(--bx, 50%) var(--by, -10%), var(--accent), transparent 66%);
+  opacity: 0; mix-blend-mode: overlay; transition: opacity .35s ease;
+}
+.hero__box.is-live::after { opacity: .5; }
+.hero__inner { position: relative; z-index: 2; }
+.hero__art { position: relative; z-index: 2; }
 .hero__meta {
   display: inline-flex; align-items: center; gap: 9px;
   font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
@@ -161,11 +196,16 @@ html.lenis, html.lenis body { height: auto; }
   background: var(--accent); color: #fff; transition: transform .2s, box-shadow .2s;
 }
 .hero__cv:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px var(--accent); }
+/* Bare portrait cutout — no frame; stands flush on the box's bottom border */
 .hero__art {
-  position: relative; aspect-ratio: 1/1; overflow: hidden;
-  border-radius: 0 0 90px 90px;
+  aspect-ratio: 4/5; height: clamp(440px, 70vh, 760px);
+  align-self: end; justify-self: center;
+  margin-bottom: calc(-1 * clamp(24px, 3vw, 48px)); /* reach past the box padding to the border */
+  transition: transform .25s cubic-bezier(.22,1,.36,1);
+  transform-style: preserve-3d;
 }
 .hero__art img {
+  position: relative; z-index: 1;
   width: 100%; height: 100%; display: block;
   object-fit: cover; object-position: center bottom;
 }
@@ -200,10 +240,31 @@ html.lenis, html.lenis body { height: auto; }
 .work { background: var(--bg-2); }
 .work__head { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: flex-end; justify-content: space-between; margin-bottom: 50px; }
 .panel {
+  position: relative;
   display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: center;
-  padding: 36px 0; border-top: 1px solid var(--line);
+  padding: 36px 24px; margin: 0 -24px; border-top: 1px solid var(--line);
+  border-radius: 18px;
+  transition: background .35s ease, box-shadow .35s ease;
 }
 .panel:last-child { border-bottom: 1px solid var(--line); }
+.panel:hover { background: var(--surface); box-shadow: var(--shadow); }
+/* Accent rule that grows on the active row */
+.panel::before {
+  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 0; background: var(--accent); border-radius: 2px;
+  transition: height .4s cubic-bezier(.22,1,.36,1);
+}
+.panel:hover::before { height: 56%; }
+/* Big ghosted index number, editorial accent */
+.panel__ghost {
+  position: absolute; right: 18px; top: 4px; z-index: 0; pointer-events: none;
+  font-family: var(--serif); font-weight: 700; line-height: 1; letter-spacing: -.04em;
+  font-size: clamp(4rem, 10vw, 8rem); color: var(--text); opacity: .045;
+}
+.panel__media, .panel__body { position: relative; z-index: 1; }
+/* Featured (the studio) gets a warm wash */
+.panel--featured { background: linear-gradient(115deg, var(--accent-soft), transparent 55%); }
+.panel--featured:hover { background: linear-gradient(115deg, var(--accent-soft), var(--surface) 62%); }
 .panel--featured .panel__name { color: var(--accent); }
 .panel__media {
   display: grid; place-items: center; aspect-ratio: 1/1;
@@ -244,6 +305,8 @@ html.lenis, html.lenis body { height: auto; }
   display: flex; gap: 26px; overflow-x: auto; scroll-snap-type: x proximity;
   padding: 40px 6vw 30px; margin: 0 -6vw; -webkit-overflow-scrolling: touch;
   scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6vw, #000 calc(100% - 6vw), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 6vw, #000 calc(100% - 6vw), transparent 100%);
 }
 .art-rail::-webkit-scrollbar { height: 7px; }
 .art-rail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
@@ -342,8 +405,9 @@ html.lenis, html.lenis body { height: auto; }
     background: var(--bg); border-bottom: 1px solid var(--line);
   }
   .nav__burger { display: flex; }
-  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 130px; }
-  .hero__art { max-width: 380px; }
+  .hero { padding-top: 116px; }
+  .hero__box { grid-template-columns: 1fr; gap: 30px; padding: 26px; }
+  .hero__art { max-width: 380px; margin: 0 auto; width: 100%; }
   .about__cols { grid-template-columns: 1fr; gap: 22px; }
   .panel { grid-template-columns: 1fr; gap: 22px; }
   .panel__media { max-width: 220px; }

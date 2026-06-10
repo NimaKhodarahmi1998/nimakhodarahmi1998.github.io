@@ -138,6 +138,7 @@ function renderWork() {
         : `<span class="panel__initial" style="background:${w.tint}">${w.name[0]}</span>`;
       return `
       <article class="panel${w.featured ? " panel--featured" : ""}">
+        <span class="panel__ghost" aria-hidden="true">${num}</span>
         <div class="panel__media">${thumb}</div>
         <div class="panel__body">
           <span class="panel__index">${num}${w.featured ? " · Studio" : ""}</span>
@@ -299,6 +300,62 @@ function initRailDrag() {
 }
 
 // ============================================================
+//  HERO: cursor-reactive 3D tilt + light that follows the pointer
+// ============================================================
+function initHeroTilt() {
+  const art = document.querySelector(".hero__art");
+  if (!art) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const noHover = window.matchMedia("(hover: none)").matches;
+  if (reduce || noHover) return;
+
+  const MAX = 7; // max tilt in degrees
+  let raf = null, px = 0.5, py = 0.3;
+  const render = () => {
+    raf = null;
+    const ry = (px - 0.5) * MAX * 2;   // left/right -> rotateY
+    const rx = (0.5 - py) * MAX * 2;   // up/down   -> rotateX
+    art.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+    art.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+    art.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+  };
+  art.addEventListener("pointermove", (e) => {
+    const r = art.getBoundingClientRect();
+    px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+    art.classList.add("is-tilting");
+    if (!raf) raf = requestAnimationFrame(render);
+  });
+  art.addEventListener("pointerleave", () => {
+    art.classList.remove("is-tilting");
+    art.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    art.style.removeProperty("--mx");
+    art.style.removeProperty("--my");
+  });
+}
+
+// Box-wide light that follows the cursor and recolors the content under it
+function initHeroBox() {
+  const box = document.getElementById("hero-box");
+  if (!box) return;
+  if (window.matchMedia("(hover: none)").matches) return;
+  let raf = null, bx = 50, by = 0;
+  const render = () => {
+    raf = null;
+    box.style.setProperty("--bx", bx.toFixed(1) + "%");
+    box.style.setProperty("--by", by.toFixed(1) + "%");
+  };
+  box.addEventListener("pointermove", (e) => {
+    const r = box.getBoundingClientRect();
+    bx = ((e.clientX - r.left) / r.width) * 100;
+    by = ((e.clientY - r.top) / r.height) * 100;
+    box.classList.add("is-live");
+    if (!raf) raf = requestAnimationFrame(render);
+  });
+  box.addEventListener("pointerleave", () => box.classList.remove("is-live"));
+}
+
+// ============================================================
 //  MOTION: Lenis smooth scroll + GSAP ScrollTrigger
 //  (uses gsap.from so content stays visible if GSAP fails to load)
 // ============================================================
@@ -400,6 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   animateLanguages();
   initRailDrag();
+  initHeroTilt();
+  initHeroBox();
   // Motion last, after content exists. Wait a tick for CDN scripts.
   if (document.readyState === "complete") initMotion();
   else window.addEventListener("load", initMotion);
