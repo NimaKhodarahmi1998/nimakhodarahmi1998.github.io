@@ -74,6 +74,10 @@ const work = [
     name: "Cow Workers Studio",
     kind: "Studio · Co-founder",
     desc: "An indie game studio I co-founded. I shape the brand, draw the art, and build the games.",
+    long: [
+      "Cow Workers is an indie game studio I co-founded, and it's where most of my hats come off at once: I shape the brand, draw the characters by hand, and build the games in Swift. The whole thing is held together by a hard-hat cow mascot and a love for small, characterful games.",
+      "Co-founding it has meant owning the look and feel end to end — from the logo and colour palette to the in-game art and the way each idea is prototyped. We're still heads-down on our first releases, but the identity and the world around it are already very much alive.",
+    ],
     thumb: "assets/cow-workers-icon.png",
     links: [{ label: "Branding & art", icon: "procreate", to: "#design" }],
     featured: true,
@@ -82,6 +86,10 @@ const work = [
     name: "GraBeat",
     kind: "iPad & Mac game",
     desc: "A two-player camera game. Catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand-tracking. I designed all the graphics.",
+    long: [
+      "GraBeat is a two-player camera game for iPad and Mac. Players catch neon notes by pinching their fingers in time with the beat, tracked live through the camera with no controllers in sight. It's built with Swift, SwiftUI and Apple's Vision framework for hand-tracking.",
+      "Beyond the code, I designed the entire visual identity — the glitchy neon look, the note graphics, and the on-screen feedback that makes a pinch feel like a hit. It was a fun place to push how playful a hand-tracked interface can be.",
+    ],
     thumb: "assets/grabeat.png",
     links: [
       { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
@@ -92,6 +100,10 @@ const work = [
     name: "Whispers of the Garden",
     kind: "iOS · App Store",
     desc: "Gamified Persian poetry in hand-drawn gardens. Every scene painted by hand in Procreate.",
+    long: [
+      "Whispers of the Garden is a gamified Persian poetry app, live on the App Store. It sets classical verse inside hand-drawn gardens you move through as you play, turning reading poetry into something you explore rather than scroll past.",
+      "Every scene is painted by hand in Procreate — the courtyards and pools, the lotuses, the songbirds, the unfurling Khayyam verses. It's the project where my writing, my illustration and my SwiftUI all finally met in one place.",
+    ],
     thumb: "assets/whispers.jpg",
     links: [
       { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/whispers-of-the-garden/id6760307230" },
@@ -102,6 +114,10 @@ const work = [
     name: "Magrana",
     kind: "watchOS",
     desc: "A native watchOS app for staying close to the people who matter most.",
+    long: [
+      "Magrana is a native watchOS app for staying close to the people who matter most, right from your wrist. It strips reaching out down to a glance and a tap, so keeping in touch doesn't have to wait for you to pick up your phone.",
+      "Built in SwiftUI for the watch, it's deliberately small and focused — the kind of app that does one warm thing well instead of asking for your attention. Designing for such a tiny screen pushed every interaction to earn its place.",
+    ],
     thumb: "assets/magrana.png",
     links: [{ label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Magrana" }],
   },
@@ -133,19 +149,24 @@ function renderWork() {
   el.innerHTML = work
     .map((w, i) => {
       const num = String(i + 1).padStart(2, "0");
-      const thumb = w.thumb
-        ? `<img class="panel__icon" src="${w.thumb}" alt="${w.name}" loading="lazy" />`
+      const media = w.thumb
+        ? `<img class="panel__img" src="${w.thumb}" alt="${w.name}" loading="lazy" />`
         : `<span class="panel__initial" style="background:${w.tint}">${w.name[0]}</span>`;
+      const paras = (w.long || [w.desc]).map((p) => `<p>${p}</p>`).join("");
       return `
-      <article class="panel${w.featured ? " panel--featured" : ""}">
-        <span class="panel__ghost" aria-hidden="true">${num}</span>
-        <div class="panel__media">${thumb}</div>
-        <div class="panel__body">
-          <span class="panel__index">${num}${w.featured ? " · Studio" : ""}</span>
+      <article class="panel${w.featured ? " panel--featured" : ""}" tabindex="0">
+        <div class="panel__bar">
+          <span class="panel__index">${num}</span>
+          ${w.thumb ? `<img class="panel__chip" src="${w.thumb}" alt="" loading="lazy" />` : ""}
           <h3 class="panel__name">${w.name}</h3>
-          <p class="panel__kind">${w.kind}</p>
-          <p class="panel__desc">${w.desc}</p>
-          <div class="panel__links">${w.links.map(linkHTML).join("")}</div>
+          <span class="panel__kind">${w.kind}</span>
+        </div>
+        <div class="panel__expand">
+          <div class="panel__media">${media}</div>
+          <div class="panel__text">
+            <div class="panel__paras">${paras}</div>
+            <div class="panel__links">${w.links.map(linkHTML).join("")}</div>
+          </div>
         </div>
       </article>`;
     })
