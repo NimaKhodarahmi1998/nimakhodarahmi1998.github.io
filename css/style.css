@@ -419,8 +419,16 @@ html.lenis, html.lenis body { height: auto; }
   .work__panels { height: auto; gap: 18px; }
   .panel { flex: none; min-height: 0; }
   .panel:first-child { flex-grow: 0; }
-  .panel__expand { opacity: 1; grid-template-columns: 1fr; padding: 0 22px 24px; gap: 18px; }
+  /* Let the bar wrap so the long "kind" label never forces the panel wider than the screen */
+  .panel__bar { flex-wrap: wrap; gap: 10px 14px; }
+  .panel__name { min-width: 0; }
+  .panel__kind { margin-left: 0; flex-basis: 100%; }
+  /* minmax(0,…) lets the column shrink so paragraphs wrap instead of being clipped */
+  .panel__expand { opacity: 1; grid-template-columns: minmax(0, 1fr); padding: 0 22px 24px; gap: 18px; }
   .panel__media { aspect-ratio: 16/10; }
+  .panel__paras p { max-width: 100%; overflow-wrap: anywhere; }
+  /* Rails: drop the desktop -6vw edge bleed that overflowed the viewport on phones */
+  .art-rail { margin-left: 0; margin-right: 0; }
   .caps__grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
