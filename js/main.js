@@ -92,6 +92,8 @@ const work = [
     ],
     thumb: "assets/grabeat.png",
     links: [
+      { label: "iOS & iPadOS", icon: "appstore", url: "https://apps.apple.com/it/app/grabeat-play-pinch-repeat/id6774738003" },
+      { label: "macOS", icon: "appstore", url: "https://apps.apple.com/it/app/grabeat-play-pinch-repeat/id6774738003?l=en-GB" },
       { label: "Code", icon: "github", url: "https://github.com/whyzii/Grabeat" },
       { label: "Graphics by me", icon: "procreate", to: "#design" },
     ],
@@ -129,6 +131,7 @@ const work = [
 const icon = (key) => `<span class="ico">${ICONS[key] || ""}</span>`;
 
 function linkHTML(l) {
+  if (l.soon) return `<span class="taglink taglink--soon">${icon(l.icon)}${l.label}</span>`;
   if (l.to) return `<a class="taglink" href="${l.to}">${icon(l.icon)}${l.label}<span class="arr">↗</span></a>`;
   const ext = l.url && l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
   return `<a class="taglink" href="${l.url}"${ext}>${icon(l.icon)}${l.label}<span class="arr">↗</span></a>`;
@@ -478,7 +481,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   animateLanguages();
   initRailDrag();
-  initHeroTilt();
   initHeroBox();
   // Motion last, after content exists. Wait a tick for CDN scripts.
   if (document.readyState === "complete") initMotion();

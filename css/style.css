@@ -126,7 +126,7 @@ html.lenis, html.lenis body { height: auto; }
    ============================================================ */
 .hero {
   min-height: 100vh; display: flex; align-items: flex-start;
-  padding: 100px 16px 56px; position: relative;
+  padding: 100px 16px 90px; position: relative;
 }
 /* Soft accent glow for ambient depth around the box */
 .hero::before {
@@ -198,7 +198,7 @@ html.lenis, html.lenis body { height: auto; }
 .hero__cv:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px var(--accent); }
 /* Bare portrait cutout — no frame; stands flush on the box's bottom border */
 .hero__art {
-  aspect-ratio: 4/5; height: clamp(440px, 70vh, 760px);
+  aspect-ratio: 4/5; height: 760px;
   align-self: end; justify-self: center;
   margin-bottom: calc(-1 * clamp(24px, 3vw, 48px)); /* reach past the box padding to the border */
   transition: transform .25s cubic-bezier(.22,1,.36,1);
@@ -299,6 +299,8 @@ html.lenis, html.lenis body { height: auto; }
   background: var(--surface); transition: color .2s, border-color .2s, transform .2s, background .2s;
 }
 .taglink:hover { color: #fff; background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+.taglink--soon { color: var(--muted); border-style: dashed; cursor: default; }
+.taglink--soon:hover { color: var(--muted); background: var(--surface); border-color: var(--line); transform: none; }
 .taglink .ico { width: 14px; height: 14px; }
 .taglink .arr { font-size: .72rem; }
 
@@ -413,6 +415,7 @@ html.lenis, html.lenis body { height: auto; }
   .nav__burger { display: flex; }
   .hero { padding-top: 116px; }
   .hero__box { grid-template-columns: 1fr; gap: 30px; padding: 26px; }
+  .hero__art { height: clamp(440px, 64vh, 560px); }
   .hero__art { max-width: 380px; margin: 0 auto; width: 100%; }
   .about__cols { grid-template-columns: 1fr; gap: 22px; }
   /* Accordion -> static stacked cards (no hover on touch) */
