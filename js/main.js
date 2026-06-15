@@ -36,6 +36,7 @@ const design = [
   { type: "image", src: "assets/grabeat-icon-concept.png", project: "GraBeat", caption: "Early concept" },
   { type: "image", src: "assets/whispers-icon.png", project: "Whispers of the Garden", caption: "App icon" },
   { type: "image", src: "assets/magrana-icon.png", project: "Magrana", caption: "App icon" },
+  { type: "image", src: "assets/roka.png", project: "Roka", caption: "App icon" },
 ];
 
 // Hand-drawn illustrations (the centrepiece)
@@ -73,10 +74,10 @@ const work = [
   {
     name: "Cow Workers Studio",
     kind: "Studio · Co-founder",
-    desc: "An indie game studio I co-founded. I shape the brand, draw the art, and build the games.",
+    desc: "An indie game studio I co-founded. I do the brand, draw the art, and build the games.",
     long: [
-      "Cow Workers is an indie game studio I co-founded, and it's where most of my hats come off at once: I shape the brand, draw the characters by hand, and build the games in Swift. The whole thing is held together by a hard-hat cow mascot and a love for small, characterful games.",
-      "Co-founding it has meant owning the look and feel end to end — from the logo and colour palette to the in-game art and the way each idea is prototyped. We're still heads-down on our first releases, but the identity and the world around it are already very much alive.",
+      "Cow Workers is a small game studio I co-founded, and it's where I get to wear every hat at once. I shape the brand, draw the characters by hand, and build the games in Swift. It all revolves around a hard-hat cow mascot and a soft spot for small games with personality.",
+      "Co-founding it meant owning the whole look and feel, from the logo and colours to the in-game art and the way we prototype each idea. We're still heads-down on our first releases, but the identity and the little world around it already feel alive.",
     ],
     thumb: "assets/cow-workers-icon.png",
     links: [{ label: "Branding & art", icon: "procreate", to: "#design" }],
@@ -85,10 +86,10 @@ const work = [
   {
     name: "GraBeat",
     kind: "iPad & Mac game",
-    desc: "A two-player camera game. Catch neon notes by pinching, to the beat. Swift, SwiftUI & Vision hand-tracking. I designed all the graphics.",
+    desc: "A two-player camera game. You pinch to catch neon notes on the beat. Built with Swift, SwiftUI and Vision hand-tracking. I made all the graphics.",
     long: [
-      "GraBeat is a two-player camera game for iPad and Mac. Players catch neon notes by pinching their fingers in time with the beat, tracked live through the camera with no controllers in sight. It's built with Swift, SwiftUI and Apple's Vision framework for hand-tracking.",
-      "Beyond the code, I designed the entire visual identity — the glitchy neon look, the note graphics, and the on-screen feedback that makes a pinch feel like a hit. It was a fun place to push how playful a hand-tracked interface can be.",
+      "GraBeat is a two-player camera game for iPad and Mac. You catch neon notes by pinching your fingers in time with the beat, tracked live through the camera with no controllers at all. It's built with Swift, SwiftUI and Apple's Vision framework for hand-tracking.",
+      "My side of it was the visual identity: the glitchy neon look, the note graphics, and the little hit feedback that makes a pinch feel like you actually caught something. It was a fun chance to see how playful a hand-tracked interface could get.",
     ],
     thumb: "assets/grabeat.png",
     links: [
@@ -101,10 +102,10 @@ const work = [
   {
     name: "Whispers of the Garden",
     kind: "iOS · App Store",
-    desc: "Gamified Persian poetry in hand-drawn gardens. Every scene painted by hand in Procreate.",
+    desc: "Persian poetry turned into a game you walk through, set in gardens I drew by hand in Procreate.",
     long: [
-      "Whispers of the Garden is a gamified Persian poetry app, live on the App Store. It sets classical verse inside hand-drawn gardens you move through as you play, turning reading poetry into something you explore rather than scroll past.",
-      "Every scene is painted by hand in Procreate — the courtyards and pools, the lotuses, the songbirds, the unfurling Khayyam verses. It's the project where my writing, my illustration and my SwiftUI all finally met in one place.",
+      "Whispers of the Garden is a Persian poetry app that's live on the App Store. It puts classical verse inside hand-drawn gardens you move through as you play, so reading poetry becomes something you explore instead of scroll past.",
+      "I painted every scene by hand in Procreate: the courtyards and pools, the lotuses, the songbirds, the Khayyam verses unfurling across the screen. It's the project where my writing, my drawing and my SwiftUI finally came together in one place.",
     ],
     thumb: "assets/whispers.jpg",
     links: [
@@ -115,13 +116,27 @@ const work = [
   {
     name: "Magrana",
     kind: "watchOS",
-    desc: "A native watchOS app for staying close to the people who matter most.",
+    desc: "A little watchOS app for staying close to the people who matter most.",
     long: [
-      "Magrana is a native watchOS app for staying close to the people who matter most, right from your wrist. It strips reaching out down to a glance and a tap, so keeping in touch doesn't have to wait for you to pick up your phone.",
-      "Built in SwiftUI for the watch, it's deliberately small and focused — the kind of app that does one warm thing well instead of asking for your attention. Designing for such a tiny screen pushed every interaction to earn its place.",
+      "Magrana is a watchOS app for staying close to the people who matter most, right from your wrist. It boils reaching out down to a glance and a tap, so keeping in touch doesn't have to wait until you pick up your phone.",
+      "I built it in SwiftUI for the watch and kept it deliberately small. It's the kind of app that does one warm thing well instead of fighting for your attention. Designing for a screen that tiny made every tap earn its place.",
     ],
     thumb: "assets/magrana.png",
     links: [{ label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Magrana" }],
+  },
+  {
+    name: "Roka",
+    kind: "iOS game",
+    desc: "A small word game about staying focused. You sort cards into the categories they fit. I did the owl and the whole paper notebook look.",
+    long: [
+      "Roka is a word game I helped make for iPhone. You get a stack of word cards and sort each one into the categories it belongs to. A lot of words fit more than one, so you actually have to read and think instead of going on autopilot. It's built in SwiftUI.",
+      "I wasn't on the code side of this one. My part was the art and the look: the owl icon I drew by hand, the lined paper, the typewriter feel. Same kind of role I had on GraBeat, where I made the graphics and the team built the game.",
+    ],
+    thumb: "assets/roka.png",
+    links: [
+      { label: "Code", icon: "github", url: "https://github.com/J-C-1020/Roka-Word-Sorting" },
+      { label: "Graphics by me", icon: "procreate", to: "#design" },
+    ],
   },
 ];
 
