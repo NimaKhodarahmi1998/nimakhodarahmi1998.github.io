@@ -134,6 +134,7 @@ const work = [
     ],
     thumb: "assets/roka.png",
     links: [
+      { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/roka-word-sorting/id6760015996" },
       { label: "Code", icon: "github", url: "https://github.com/J-C-1020/Roka-Word-Sorting" },
       { label: "Graphics by me", icon: "procreate", to: "#design" },
     ],
