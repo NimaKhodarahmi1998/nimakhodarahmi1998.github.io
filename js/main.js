@@ -129,7 +129,7 @@ const work = [
     kind: "iOS game",
     desc: "A small word game about staying focused. You sort cards into the categories they fit. I did the owl and the whole paper notebook look.",
     long: [
-      "Roka is a word game I helped make for iPhone. You get a stack of word cards and sort each one into the categories it belongs to. A lot of words fit more than one, so you actually have to read and think instead of going on autopilot. It's built in SwiftUI.",
+      "Roka is a word game I helped make for iPhone, and it's out on the App Store now. You get a stack of word cards and sort each one into the categories it belongs to. A lot of words fit more than one, so you actually have to read and think instead of going on autopilot. It's built in SwiftUI.",
       "I wasn't on the code side of this one. My part was the art and the look: the owl icon I drew by hand, the lined paper, the typewriter feel. Same kind of role I had on GraBeat, where I made the graphics and the team built the game.",
     ],
     thumb: "assets/roka.png",
