@@ -62,11 +62,16 @@ const languages = [
 
 const experience = [
   { role: "Co-founder, Developer & Designer", org: "Cow Workers Studio", period: "2025 to Now" },
-  { role: "Junior iOS Developer", org: "Apple Developer Academy", period: "2025 to Now" },
   { role: "Tourist Guide", org: "Amalfi Coast", period: "2025 to Now" },
   { role: "Guide Writer", org: "TheGamer (Valnet)", period: "2024" },
   { role: "Head Critic & Designer", org: "SargarME", period: "2021 to 2024" },
   { role: "English Teacher", org: "Ministry of Education", period: "2017 to 2023" },
+];
+
+const education = [
+  { role: "Student", org: "Apple Developer Academy at UniNA", period: "2025 to Now" },
+  { role: "MA, Languages & Literatures for European Plurilingualism", org: "University of Naples \"Federico II\"", period: "2024 to Now" },
+  { role: "BA, English Language & Literature", org: "Azad University, Iran", period: "2016 to 2020" },
 ];
 
 // Selected work: first item is the studio (featured)
@@ -223,6 +228,21 @@ function renderExperience() {
   const el = document.getElementById("path");
   if (!el) return;
   el.innerHTML = experience
+    .map(
+      (e) => `
+      <li class="path__item">
+        <span class="path__period">${e.period}</span>
+        <span class="path__role">${e.role}</span>
+        <span class="path__org">${e.org}</span>
+      </li>`
+    )
+    .join("");
+}
+
+function renderEducation() {
+  const el = document.getElementById("education");
+  if (!el) return;
+  el.innerHTML = education
     .map(
       (e) => `
       <li class="path__item">
@@ -491,6 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRail("design-rail", design);
   renderSkills();
   renderExperience();
+  renderEducation();
   renderLanguages();
   renderLinks();
   initTheme();
