@@ -83,6 +83,7 @@ const work = [
     long: [
       "Cow Workers is a small game studio I co-founded, and it's where I get to wear every hat at once. I shape the brand, draw the characters by hand, and build the games in Swift. It all revolves around a hard-hat cow mascot and a soft spot for small games with personality.",
       "Co-founding it meant owning the whole look and feel, from the logo and colours to the in-game art and the way we prototype each idea. We're still heads-down on our first releases, but the identity and the little world around it already feel alive.",
+      "Honestly it's the most fun I've had making things. There's no brief to answer to, just us deciding what feels right and drawing until it does.",
     ],
     thumb: "assets/cow-workers-icon.png",
     links: [{ label: "Branding & art", icon: "procreate", to: "#design" }],
@@ -95,6 +96,7 @@ const work = [
     long: [
       "GraBeat is a two-player camera game for iPad and Mac. You catch neon notes by pinching your fingers in time with the beat, tracked live through the camera with no controllers at all. It's built with Swift, SwiftUI and Apple's Vision framework for hand-tracking.",
       "My side of it was the visual identity: the glitchy neon look, the note graphics, and the little hit feedback that makes a pinch feel like you actually caught something. It was a fun chance to see how playful a hand-tracked interface could get.",
+      "It started as a small experiment with hand tracking and kind of snowballed into a real game. Watching someone catch their first note and break into a grin is still the best part.",
     ],
     thumb: "assets/grabeat.png",
     links: [
@@ -106,16 +108,33 @@ const work = [
   },
   {
     name: "Whispers of the Garden",
-    kind: "iOS · App Store",
+    kind: "iPad & iPhone game",
     desc: "Persian poetry turned into a game you walk through, set in gardens I drew by hand in Procreate.",
     long: [
       "Whispers of the Garden is a Persian poetry app that's live on the App Store. It puts classical verse inside hand-drawn gardens you move through as you play, so reading poetry becomes something you explore instead of scroll past.",
       "I painted every scene by hand in Procreate: the courtyards and pools, the lotuses, the songbirds, the Khayyam verses unfurling across the screen. It's the project where my writing, my drawing and my SwiftUI finally came together in one place.",
+      "It's the project closest to me. The poems are ones I grew up reading, so drawing the world around them felt like giving something back to them.",
     ],
     thumb: "assets/whispers.jpg",
     links: [
       { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/whispers-of-the-garden/id6760307230" },
       { label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-WhispersoftheGarden" },
+    ],
+  },
+  {
+    name: "Roka",
+    kind: "iPad & iPhone game",
+    desc: "A small word game about staying focused. You sort cards into the categories they fit. I did the owl and the whole paper notebook look.",
+    long: [
+      "Roka is a word game I helped make for iPhone, and it's out on the App Store now. You get a stack of word cards and sort each one into the categories it belongs to. A lot of words fit more than one, so you actually have to read and think instead of going on autopilot. It's built in SwiftUI.",
+      "I wasn't on the code side of this one. My part was the art and the look: the owl icon I drew by hand, the lined paper, the typewriter feel. Same kind of role I had on GraBeat, where I made the graphics and the team built the game.",
+      "I wanted it to feel like a worn paper notebook, the kind you'd actually doodle an owl in the margin of. Lined paper, typewriter text, a bit of softness everywhere.",
+    ],
+    thumb: "assets/roka.png",
+    links: [
+      { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/roka-word-sorting/id6760015996" },
+      { label: "Code", icon: "github", url: "https://github.com/J-C-1020/Roka-Word-Sorting" },
+      { label: "Graphics by me", icon: "procreate", to: "#design" },
     ],
   },
   {
@@ -125,24 +144,10 @@ const work = [
     long: [
       "Magrana is a watchOS app for staying close to the people who matter most, right from your wrist. It boils reaching out down to a glance and a tap, so keeping in touch doesn't have to wait until you pick up your phone.",
       "I built it in SwiftUI for the watch and kept it deliberately small. It's the kind of app that does one warm thing well instead of fighting for your attention. Designing for a screen that tiny made every tap earn its place.",
+      "I wanted it to feel warm, not like one more notification asking for your time. A glance, a tap, and the people you love know you're thinking of them.",
     ],
     thumb: "assets/magrana.png",
     links: [{ label: "Code", icon: "github", url: "https://github.com/NimaKhodarahmi1998/app-Magrana" }],
-  },
-  {
-    name: "Roka",
-    kind: "iOS game",
-    desc: "A small word game about staying focused. You sort cards into the categories they fit. I did the owl and the whole paper notebook look.",
-    long: [
-      "Roka is a word game I helped make for iPhone, and it's out on the App Store now. You get a stack of word cards and sort each one into the categories it belongs to. A lot of words fit more than one, so you actually have to read and think instead of going on autopilot. It's built in SwiftUI.",
-      "I wasn't on the code side of this one. My part was the art and the look: the owl icon I drew by hand, the lined paper, the typewriter feel. Same kind of role I had on GraBeat, where I made the graphics and the team built the game.",
-    ],
-    thumb: "assets/roka.png",
-    links: [
-      { label: "App Store", icon: "appstore", url: "https://apps.apple.com/it/app/roka-word-sorting/id6760015996" },
-      { label: "Code", icon: "github", url: "https://github.com/J-C-1020/Roka-Word-Sorting" },
-      { label: "Graphics by me", icon: "procreate", to: "#design" },
-    ],
   },
 ];
 
@@ -170,50 +175,158 @@ function mediaHTML(g, cls) {
 function renderWork() {
   const el = document.getElementById("work-panels");
   if (!el) return;
-  el.innerHTML = work
+
+  // Master: a compact, tappable list of every project
+  const list = work
     .map((w, i) => {
       const num = String(i + 1).padStart(2, "0");
+      return `
+      <li>
+        <button class="worklist__item${i === 0 ? " is-active" : ""}" data-i="${i}" type="button">
+          <span class="worklist__index">${num}</span>
+          <span class="worklist__text">
+            <span class="worklist__name">${w.name}</span>
+            <span class="worklist__kind">${w.kind}</span>
+          </span>
+        </button>
+      </li>`;
+    })
+    .join("");
+
+  // Detail: the full write-up of each project, only the active one shown
+  const views = work
+    .map((w, i) => {
       const media = w.thumb
-        ? `<img class="panel__img" src="${w.thumb}" alt="${w.name}" loading="lazy" />`
-        : `<span class="panel__initial" style="background:${w.tint}">${w.name[0]}</span>`;
+        ? `<img class="workview__img" src="${w.thumb}" alt="${w.name}" loading="lazy" />`
+        : `<span class="workview__initial" style="background:${w.tint}">${w.name[0]}</span>`;
       const paras = (w.long || [w.desc]).map((p) => `<p>${p}</p>`).join("");
       return `
-      <article class="panel${w.featured ? " panel--featured" : ""}" tabindex="0">
-        <div class="panel__bar">
-          <span class="panel__index">${num}</span>
-          ${w.thumb ? `<img class="panel__chip" src="${w.thumb}" alt="" loading="lazy" />` : ""}
-          <h3 class="panel__name">${w.name}</h3>
-          <span class="panel__kind">${w.kind}</span>
-        </div>
-        <div class="panel__expand">
-          <div class="panel__media">${media}</div>
-          <div class="panel__text">
-            <div class="panel__paras">${paras}</div>
-            <div class="panel__links">${w.links.map(linkHTML).join("")}</div>
+      <article class="workview${i === 0 ? " is-active" : ""}" data-i="${i}">
+        <div class="workview__head">
+          <div class="workview__icon">${media}</div>
+          <div class="workview__meta">
+            <h3 class="workview__name">${w.name}</h3>
+            <span class="workview__kind">${w.kind}</span>
+            <div class="workview__links">${w.links.map(linkHTML).join("")}</div>
           </div>
         </div>
+        <div class="workview__paras">${paras}</div>
       </article>`;
     })
     .join("");
+
+  el.innerHTML = `<ul class="worklist">${list}</ul><div class="work__detail">${views}</div>`;
 }
 
-function railCard(g) {
+function thumbHTML(g, i) {
   const fit = g.fit || (g.tint ? "contain" : "cover");
   const tintStyle = g.tint ? ` style="background:${g.tint}"` : "";
-  const mediaCls = "art-card__img" + (fit === "contain" ? " art-card__img--contain" : "");
+  const mediaCls = "gallery__thumb-el" + (fit === "contain" ? " is-contain" : "");
+  const data =
+    ` data-type="${g.type}" data-src="${g.src}" data-caption="${g.caption}"` +
+    (g.project ? ` data-project="${g.project}"` : "") +
+    (g.tint ? ` data-tint="${g.tint}"` : "") +
+    (fit === "contain" ? ` data-fit="contain"` : "");
   return `
-    <figure class="art-card">
-      <div class="art-card__media"${tintStyle}>${mediaHTML(g, mediaCls)}</div>
-      <figcaption class="art-card__cap">
-        ${g.project ? `<span class="art-card__project">${g.project}</span>` : ""}
-        <span class="art-card__title">${g.caption}</span>
-      </figcaption>
-    </figure>`;
+    <li>
+      <button class="gallery__thumb${i === 0 ? " is-active" : ""}" type="button"${data}>
+        <span class="gallery__thumb-media"${tintStyle}>${mediaHTML(g, mediaCls)}</span>
+      </button>
+    </li>`;
 }
 
 function renderRail(id, items) {
   const el = document.getElementById(id);
-  if (el) el.innerHTML = items.map(railCard).join("");
+  if (!el) return;
+  el.innerHTML = `
+    <div class="gallery__stage" role="button" tabindex="0" aria-label="Open full size"></div>
+    <ul class="gallery__thumbs">${items.map(thumbHTML).join("")}</ul>`;
+}
+
+// ============================================================
+//  LIGHTBOX: opens a piece large on screen (shared by all galleries)
+// ============================================================
+function makeLightbox() {
+  const lb = document.createElement("div");
+  lb.className = "lightbox";
+  lb.innerHTML = `
+    <button class="lightbox__close" type="button" aria-label="Close">✕</button>
+    <figure class="lightbox__fig">
+      <div class="lightbox__media"></div>
+      <figcaption class="lightbox__cap"></figcaption>
+    </figure>`;
+  document.body.appendChild(lb);
+  const mediaEl = lb.querySelector(".lightbox__media");
+  const capEl = lb.querySelector(".lightbox__cap");
+  const open = (d) => {
+    if (!d || !d.src) return;
+    const tint = d.tint ? ` style="background:${d.tint}"` : "";
+    const inner = d.type === "video"
+      ? `<video src="${d.src}" autoplay muted loop playsinline controls></video>`
+      : `<img src="${d.src}" alt="${d.caption || ""}" />`;
+    mediaEl.innerHTML = `<div class="lightbox__frame${d.fit === "contain" ? " is-contain" : ""}"${tint}>${inner}</div>`;
+    capEl.innerHTML =
+      (d.project ? `<span class="lightbox__project">${d.project}</span>` : "") +
+      `<span class="lightbox__title">${d.caption || ""}</span>`;
+    lb.classList.add("is-open");
+    document.body.classList.add("lightbox-open");
+  };
+  const close = () => {
+    lb.classList.remove("is-open");
+    document.body.classList.remove("lightbox-open");
+    mediaEl.innerHTML = ""; // unload media (stops video)
+  };
+  lb.addEventListener("click", (e) => {
+    if (e.target === lb || e.target.closest(".lightbox__close")) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+  });
+  return { open };
+}
+
+// ============================================================
+//  GALLERIES: featured piece + thumbnails. Hover/click a thumb to
+//  feature it; click the featured piece to open it large.
+// ============================================================
+function initGalleries() {
+  const galleries = document.querySelectorAll(".gallery");
+  if (!galleries.length) return;
+  const lightbox = makeLightbox();
+
+  galleries.forEach((gallery) => {
+    const stage = gallery.querySelector(".gallery__stage");
+    const thumbs = Array.from(gallery.querySelectorAll(".gallery__thumb"));
+    if (!stage || !thumbs.length) return;
+
+    const feature = (thumb) => {
+      const d = thumb.dataset;
+      const tint = d.tint ? ` style="background:${d.tint}"` : "";
+      const inner = d.type === "video"
+        ? `<video src="${d.src}" autoplay muted loop playsinline></video>`
+        : `<img src="${d.src}" alt="${d.caption || ""}" />`;
+      stage.innerHTML = `
+        <div class="gallery__stage-media${d.fit === "contain" ? " is-contain" : ""}"${tint}>${inner}</div>
+        <div class="gallery__stage-cap">
+          ${d.project ? `<span class="gallery__stage-project">${d.project}</span>` : ""}
+          <span class="gallery__stage-title">${d.caption || ""}</span>
+        </div>`;
+      Object.assign(stage.dataset, d); // remember current piece for the lightbox
+      thumbs.forEach((t) => t.classList.toggle("is-active", t === thumb));
+    };
+
+    thumbs.forEach((t) => {
+      t.addEventListener("mouseenter", () => feature(t));
+      t.addEventListener("click", () => feature(t));
+      t.addEventListener("focus", () => feature(t));
+    });
+    stage.addEventListener("click", () => lightbox.open(stage.dataset));
+    stage.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); lightbox.open(stage.dataset); }
+    });
+
+    feature(thumbs[0]);
+  });
 }
 
 function renderSkills() {
@@ -423,10 +536,11 @@ function initMotion() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGSAP = window.gsap && window.ScrollTrigger;
 
-  // Smooth scroll (Lenis). Falls back to native scroll if unavailable.
-  let lenis = null;
-  if (window.Lenis && !reduce) {
-    lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
+  // Smooth scroll (Lenis) only on mobile, where the page scrolls as one column.
+  // On desktop each open panel scrolls internally, so page-level smoothing is skipped.
+  const mobile = window.matchMedia("(max-width: 900px)").matches;
+  if (window.Lenis && !reduce && mobile) {
+    const lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
     if (hasGSAP) {
       lenis.on("scroll", () => window.ScrollTrigger.update());
       window.gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -437,69 +551,89 @@ function initMotion() {
     }
   }
 
-  // Anchor links -> smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const id = a.getAttribute("href");
-      if (id.length < 2) return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset: -10 });
-      else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-    });
-  });
-
   if (!hasGSAP || reduce) return; // content already visible; no animations
-  const { gsap, ScrollTrigger } = window;
-  gsap.registerPlugin(ScrollTrigger);
 
-  // Hero name lines
+  // Only time-based intro animations here. Scroll-triggered reveals are omitted
+  // on purpose: panels live in collapsed columns that never "scroll into view",
+  // so a ScrollTrigger reveal would leave their content stuck hidden.
+  const { gsap } = window;
+
+  // Hero intro
   gsap.from(".hero__name .line > span", {
     yPercent: 115, duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.15,
   });
-  gsap.from(".hero__meta, .hero__role, .hero__links, .hero__cv, .hero__scroll", {
+  gsap.from(".hero__meta, .hero__role, .hero__links, .hero__cv, .hero__hint", {
     y: 24, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, delay: 0.5,
   });
   gsap.from(".hero__art", { scale: 1.12, opacity: 0, duration: 1.4, ease: "power3.out", delay: 0.2 });
+}
 
-  // Hero art parallax
-  gsap.to(".hero__art img", {
-    yPercent: 18, ease: "none",
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+// ============================================================
+//  ACCORDION: click a spine to open its panel; the rest collapse
+// ============================================================
+function initAccordion() {
+  const root = document.getElementById("accordion");
+  if (!root) return;
+  const panels = Array.from(root.querySelectorAll("[data-panel]"));
+  if (!panels.length) return;
+
+  const open = (panel) => {
+    if (!panel) return;
+    panels.forEach((p) => {
+      const isOpen = p === panel;
+      p.classList.toggle("is-open", isOpen);
+      const spine = p.querySelector("[data-spine]");
+      if (spine) spine.setAttribute("aria-expanded", String(isOpen));
+    });
+    // Reset the freshly opened panel's scroll position to the top
+    const body = panel.querySelector(".acc-panel__body");
+    if (body) body.scrollTop = 0;
+    // On mobile the panel grows downward; bring it into view
+    if (window.matchMedia("(max-width: 900px)").matches) {
+      requestAnimationFrame(() =>
+        panel.scrollIntoView({ behavior: "smooth", block: "start" })
+      );
+    }
+  };
+
+  // Spine click toggles the panel open
+  panels.forEach((panel) => {
+    const spine = panel.querySelector("[data-spine]");
+    spine?.addEventListener("click", () => open(panel));
   });
 
-  // Section labels & titles reveal
-  gsap.utils.toArray(".reveal").forEach((el) => {
-    gsap.from(el, {
-      y: 40, opacity: 0, duration: 0.9, ease: "power3.out",
-      scrollTrigger: { trigger: el, start: "top 85%" },
+  // Hash links (nav + in-panel "Branding & art" etc.) open the target's panel
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const id = a.getAttribute("href");
+      if (!id || id.length < 2) return;
+      const target = document.querySelector(id);
+      const panel = target?.closest("[data-panel]");
+      if (!panel) return;
+      e.preventDefault();
+      open(panel);
     });
   });
+}
 
-  // Work panels
-  gsap.utils.toArray(".panel").forEach((p) => {
-    gsap.from(p, {
-      y: 70, opacity: 0, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: p, start: "top 82%" },
-    });
+// ============================================================
+//  PROJECTS: master–detail. Click a project to show its write-up
+// ============================================================
+function initWork() {
+  const items = Array.from(document.querySelectorAll("#work-panels .worklist__item"));
+  const views = Array.from(document.querySelectorAll("#work-panels .workview"));
+  if (!items.length) return;
+  const activate = (btn) => {
+    const i = btn.dataset.i;
+    items.forEach((b) => b.classList.toggle("is-active", b === btn));
+    views.forEach((v) => v.classList.toggle("is-active", v.dataset.i === i));
+  };
+  items.forEach((btn) => {
+    // Hover to open on pointer devices; click still works (and covers touch)
+    btn.addEventListener("mouseenter", () => activate(btn));
+    btn.addEventListener("click", () => activate(btn));
+    btn.addEventListener("focus", () => activate(btn));
   });
-
-  // About text + photo
-  gsap.from(".about__photo", {
-    y: 60, opacity: 0, duration: 1, ease: "power3.out",
-    scrollTrigger: { trigger: ".about", start: "top 75%" },
-  });
-
-  // Rail cards (Art + Design) rise as each rail scrolls into view
-  gsap.utils.toArray(".art-rail").forEach((rail) => {
-    gsap.from(rail.querySelectorAll(".art-card"), {
-      y: 60, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08,
-      scrollTrigger: { trigger: rail, start: "top 85%" },
-    });
-  });
-
-  ScrollTrigger.refresh();
 }
 
 // ============================================================
@@ -509,6 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderWork();
   renderRail("art-rail", illustrations);
   renderRail("design-rail", design);
+  initGalleries();
   renderSkills();
   renderExperience();
   renderEducation();
@@ -516,6 +651,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderLinks();
   initTheme();
   initNav();
+  initAccordion();
+  initWork();
   animateLanguages();
   initRailDrag();
   initHeroBox();

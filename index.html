@@ -19,117 +19,163 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=66" />
+  <link rel="stylesheet" href="css/style.css?v=109" />
 </head>
-<body>
+<body class="acc">
   <!-- NAV -->
   <header class="nav" id="nav">
-    <a class="nav__brand" href="#top">Nima Khodarahmi<span class="accent">.</span></a>
-    <nav class="nav__links" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#work">Projects</a>
-      <a href="#art">Art</a>
-      <a href="#capabilities">Experience &amp; Education</a>
-    </nav>
     <div class="nav__right">
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
-      <button id="nav-burger" class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="hero__box" id="hero-box">
-      <div class="hero__inner">
-        <p class="hero__meta">Naples, Italy</p>
-        <h1 class="hero__name">
-          <span class="line"><span>Nima</span></span>
-          <span class="line"><span>Khodarahmi<span class="accent">.</span></span></span>
-        </h1>
-        <p class="hero__role"><b>iOS Developer &amp; Designer.</b> A designer who codes, with a writer's instinct. I draw my own art by hand and build it into apps.</p>
-        <div class="hero__links" data-links></div>
-        <a class="hero__cv" href="assets/Nima-Khodarahmi-CV.pdf" download>Download CV</a>
+  <!-- ACCORDION: each section is a panel that collapses to a labelled spine -->
+  <main class="accordion" id="accordion">
+
+    <!-- HERO panel (open at load) -->
+    <section class="acc-panel acc-panel--hero is-open" data-panel data-key="top">
+      <button class="acc-spine" type="button" data-spine aria-expanded="true" aria-controls="panel-top">
+        <span class="acc-spine__index">00</span>
+        <span class="acc-spine__label acc-spine__label--name">Nima Khodarahmi<span class="accent">.</span></span>
+      </button>
+      <div class="acc-panel__body" id="panel-top">
+        <section class="hero" id="top">
+          <div class="hero__box" id="hero-box">
+            <div class="hero__inner">
+              <p class="hero__meta">Naples, Italy</p>
+              <h1 class="hero__name">
+                <span class="line"><span>Nima</span></span>
+                <span class="line"><span>Khodarahmi<span class="accent">.</span></span></span>
+              </h1>
+              <p class="hero__role"><b>iOS Developer &amp; Designer.</b> A designer who codes, with a writer's instinct. I draw my own art by hand and build it into apps.</p>
+              <div class="hero__links" data-links></div>
+              <a class="hero__cv" href="assets/Nima-Khodarahmi-CV.pdf" download>Download CV</a>
+            </div>
+            <figure class="hero__art hero__art--portrait">
+              <img src="assets/nima-hero.png?v=2" alt="Nima Khodarahmi" />
+            </figure>
+          </div>
+        </section>
       </div>
-      <figure class="hero__art hero__art--portrait">
-        <img src="assets/nima-hero.png?v=2" alt="Nima Khodarahmi" />
-      </figure>
-    </div>
-    <a href="#about" class="hero__scroll">Scroll <span>↓</span></a>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section class="section about" id="about">
-    <div class="wrap">
-      <p class="section__label reveal">About</p>
-      <p class="about__lead reveal">I draw my own art by hand in Procreate and build it into apps with Swift &amp; SwiftUI<span class="accent">.</span></p>
-      <div class="about__cols reveal">
-        <p>I trained at the Apple Developer Academy, though the years of writing and teaching before that still shape how I work. I'm a designer who codes, with a writer's instinct.</p>
-        <p>One of my apps is on the App Store. More recently I co-founded Cow Workers Studio to make games, where I shape the brand, draw the characters, and build the thing.</p>
+    <!-- ABOUT panel -->
+    <section class="acc-panel" data-panel data-key="about">
+      <button class="acc-spine" type="button" data-spine aria-expanded="false" aria-controls="panel-about">
+        <span class="acc-spine__index">01</span>
+        <span class="acc-spine__label">About</span>
+      </button>
+      <div class="acc-panel__body" id="panel-about">
+        <section class="section about" id="about">
+          <div class="wrap">
+            <p class="section__label">About</p>
+            <p class="about__lead">I draw my own art by hand in Procreate and build it into apps with Swift &amp; SwiftUI<span class="accent">.</span></p>
+            <div class="about__cols">
+              <p>I'm an iOS developer and designer based in Naples, trained at the Apple Developer Academy at the University of Naples Federico II. The years of writing and teaching before that never really left me, and they're a big part of why I think of myself as a designer who codes, with a writer's instinct.</p>
+              <p>Before Swift I taught English for five years, and I was always writing on the side too: study guides, criticism, editing. That's why I care as much about the words in an app as the buttons, and why something never feels done to me until it also <em>reads</em> right.</p>
+            </div>
+
+            <div class="about__notes">
+              <p><b>Draw.</b> I draw everything by hand in Procreate: Persian gardens, studio characters, app icons, whole identities.</p>
+              <p><b>Build.</b> Native iOS, iPadOS and watchOS in Swift and SwiftUI, built around the Human Interface Guidelines and proper accessibility.</p>
+              <p><b>Write.</b> A teacher's and writer's ear behind every label, every line of copy, and the little story each app tells.</p>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WORK -->
-  <section class="section work" id="work">
-    <div class="wrap">
-      <div class="work__head">
-        <div>
-          <p class="section__label reveal">Projects</p>
-          <h2 class="section__title reveal">Things I build<br />&amp; design<span class="accent">.</span></h2>
-        </div>
+    <!-- WORK panel -->
+    <section class="acc-panel" data-panel data-key="work">
+      <button class="acc-spine" type="button" data-spine aria-expanded="false" aria-controls="panel-work">
+        <span class="acc-spine__index">02</span>
+        <span class="acc-spine__label">Projects</span>
+      </button>
+      <div class="acc-panel__body" id="panel-work">
+        <section class="section work" id="work">
+          <div class="wrap">
+            <div class="work__head">
+              <div>
+                <p class="section__label">Projects</p>
+                <h2 class="section__title">Things I build<br />&amp; design<span class="accent">.</span></h2>
+              </div>
+            </div>
+            <div class="work__panels" id="work-panels"></div>
+          </div>
+        </section>
       </div>
-      <div class="work__panels" id="work-panels"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ART -->
-  <section class="section art" id="art">
-    <div class="wrap art__head">
-      <p class="section__label reveal">Art &amp; Illustration</p>
-      <h2 class="section__title reveal">Everything,<br />drawn by hand<span class="accent">.</span></h2>
-      <p class="art__hint reveal">Drag / scroll sideways →</p>
-    </div>
-    <div class="art-rail" id="art-rail"></div>
-  </section>
-
-  <!-- DESIGN -->
-  <section class="section art design" id="design">
-    <div class="wrap art__head">
-      <p class="section__label reveal">Brand &amp; Product Design</p>
-      <h2 class="section__title reveal">Logos, icons &amp; identities<span class="accent">.</span></h2>
-      <p class="art__hint reveal">Drag / scroll sideways →</p>
-    </div>
-    <div class="art-rail" id="design-rail"></div>
-  </section>
-
-  <!-- CAPABILITIES -->
-  <section class="section caps" id="capabilities">
-    <div class="wrap">
-      <p class="section__label reveal">Experience &amp; Education</p>
-      <h2 class="section__title reveal">Work experience<br />&amp; skills<span class="accent">.</span></h2>
-      <div class="caps__grid">
-        <div>
-          <p class="caps__sub">Skills</p>
-          <ul class="chips" id="skills"></ul>
-          <p class="caps__sub">Languages</p>
-          <ul class="lang__list" id="languages"></ul>
-        </div>
-        <div>
-          <p class="caps__sub">Experience</p>
-          <ol class="path" id="path"></ol>
-          <p class="caps__sub">Education</p>
-          <ol class="path" id="education"></ol>
-        </div>
+    <!-- ART panel -->
+    <section class="acc-panel" data-panel data-key="art">
+      <button class="acc-spine" type="button" data-spine aria-expanded="false" aria-controls="panel-art">
+        <span class="acc-spine__index">03</span>
+        <span class="acc-spine__label">Art</span>
+      </button>
+      <div class="acc-panel__body" id="panel-art">
+        <section class="section art" id="art">
+          <div class="wrap art__head">
+            <p class="section__label">Art &amp; Illustration</p>
+            <h2 class="section__title">Everything,<br />drawn by hand<span class="accent">.</span></h2>
+            <p class="art__hint">Click any piece to open it ↗</p>
+          </div>
+          <div class="gallery" id="art-rail"></div>
+        </section>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="siteft">
-    <div class="wrap siteft__row">
-      <p class="siteft__copy">© 2026 Nima Khodarahmi · Built &amp; designed in Naples.</p>
-    </div>
-  </footer>
+    <!-- DESIGN panel -->
+    <section class="acc-panel" data-panel data-key="design">
+      <button class="acc-spine" type="button" data-spine aria-expanded="false" aria-controls="panel-design">
+        <span class="acc-spine__index">04</span>
+        <span class="acc-spine__label">Design</span>
+      </button>
+      <div class="acc-panel__body" id="panel-design">
+        <section class="section art design" id="design">
+          <div class="wrap art__head">
+            <p class="section__label">Brand &amp; Product Design</p>
+            <h2 class="section__title">Logos, icons &amp; identities<span class="accent">.</span></h2>
+            <p class="art__hint">Click any piece to open it ↗</p>
+          </div>
+          <div class="gallery" id="design-rail"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES panel -->
+    <section class="acc-panel" data-panel data-key="capabilities">
+      <button class="acc-spine" type="button" data-spine aria-expanded="false" aria-controls="panel-capabilities">
+        <span class="acc-spine__index">05</span>
+        <span class="acc-spine__label">Experience</span>
+      </button>
+      <div class="acc-panel__body" id="panel-capabilities">
+        <section class="section caps" id="capabilities">
+          <div class="wrap">
+            <p class="section__label">Experience &amp; Education</p>
+            <h2 class="section__title">Work experience<br />&amp; skills<span class="accent">.</span></h2>
+            <div class="caps__grid">
+              <div>
+                <p class="caps__sub">Skills</p>
+                <ul class="chips" id="skills"></ul>
+                <p class="caps__sub">Languages</p>
+                <ul class="lang__list" id="languages"></ul>
+              </div>
+              <div>
+                <p class="caps__sub">Experience</p>
+                <ol class="path" id="path"></ol>
+                <p class="caps__sub">Education</p>
+                <ol class="path" id="education"></ol>
+              </div>
+            </div>
+            <footer class="siteft">
+              <p class="siteft__copy">© 2026 Nima Khodarahmi · Built &amp; designed in Naples.</p>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </main>
 
   <!-- Motion libs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -137,6 +183,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
   <script src="js/icons.js?v=24"></script>
-  <script src="js/main.js?v=40"></script>
+  <script src="js/main.js?v=92"></script>
 </body>
 </html>

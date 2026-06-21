@@ -233,6 +233,13 @@ html.lenis, html.lenis body { height: auto; }
 .about__lead .accent { color: var(--accent); }
 .about__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; max-width: 880px; }
 .about__cols p { font-size: 1.06rem; color: var(--muted); }
+.about__cols em { color: var(--text); font-style: italic; }
+
+/* "What I do" notes */
+.about__notes { margin-top: 40px; max-width: 880px; }
+.about__notes p { font-size: 1.06rem; color: var(--muted); line-height: 1.6; }
+.about__notes p + p { margin-top: 16px; }
+.about__notes b { color: var(--text); font-weight: 700; }
 
 /* ============================================================
    WORK
@@ -304,6 +311,58 @@ html.lenis, html.lenis body { height: auto; }
 .taglink .ico { width: 14px; height: 14px; }
 .taglink .arr { font-size: .72rem; }
 
+/* Projects master–detail: an editorial index left, the selected write-up right */
+.worklist { list-style: none; display: flex; flex-direction: column; }
+.worklist__item {
+  width: 100%; display: flex; align-items: flex-start; gap: 18px; text-align: left;
+  font: inherit; color: inherit; cursor: pointer; position: relative;
+  background: none; border: none; border-top: 1px solid var(--line);
+  padding: clamp(12px, 1.8vh, 18px) 12px clamp(12px, 1.8vh, 18px) 16px;
+}
+.worklist li:first-child .worklist__item { border-top: none; }
+/* terracotta marker on the active row */
+.worklist__item::before {
+  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 0; background: var(--accent); border-radius: 0 2px 2px 0;
+  transition: height .25s ease;
+}
+.worklist__item.is-active::before { height: 62%; }
+.worklist__index {
+  font-family: var(--serif); font-weight: 700; font-size: 1rem; color: var(--muted);
+  min-width: 2.4ch; padding-top: .3em; transition: color .2s;
+}
+.worklist__item.is-active .worklist__index { color: var(--accent); }
+.worklist__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.worklist__name {
+  font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; line-height: 1.1;
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem); color: var(--text); transition: color .2s;
+}
+.worklist__item:hover .worklist__name,
+.worklist__item.is-active .worklist__name { color: var(--accent); }
+.worklist__kind { font-size: .76rem; font-weight: 600; letter-spacing: .04em; color: var(--gold); }
+
+.work__detail { position: relative; min-height: 0; }
+.workview { display: none; flex-direction: column; min-height: 0; }
+.workview.is-active { display: flex; }
+
+/* Header row: app icon on the left, name + kind + links beside it */
+.workview__head { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); }
+.workview__icon { flex: none; }
+.workview__img,
+.workview__initial {
+  width: clamp(92px, 13vh, 138px); aspect-ratio: 1 / 1; height: auto;
+  border-radius: 24%; box-shadow: 0 18px 40px -16px rgba(40, 28, 14, .5);
+}
+.workview__img { object-fit: cover; }
+.workview__initial { display: grid; place-items: center; color: #fff; font-family: var(--serif); font-weight: 700; font-size: 3rem; }
+.workview__meta { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.workview__name { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; line-height: 1.05; font-size: clamp(1.6rem, 2.6vw, 2.3rem); }
+.workview__kind { font-size: .8rem; font-weight: 600; letter-spacing: .04em; color: var(--gold); }
+.workview__links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.workview__paras { margin-top: clamp(20px, 3vh, 34px); }
+.workview__paras p { color: var(--muted); font-size: 1.04rem; line-height: 1.65; max-width: 64ch; }
+.workview__paras p + p { margin-top: .9em; }
+
 /* ============================================================
    ART: horizontal rail of illustrations
    ============================================================ */
@@ -333,6 +392,64 @@ html.lenis, html.lenis body { height: auto; }
 .art-card__cap { padding: 14px 4px 0; }
 .art-card__project { display: block; font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
 .art-card__title { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; }
+
+/* ============================================================
+   GALLERY (Art & Design): grid of tiles that open in a lightbox
+   ============================================================ */
+.gallery { display: flex; flex-direction: column; gap: clamp(14px, 2vw, 28px); }
+/* Featured piece (shows the artwork fully, no crop) */
+.gallery__stage {
+  display: flex; flex-direction: column; gap: 12px; min-width: 0;
+  cursor: pointer; border: none; background: none; padding: 0; text-align: left;
+}
+.gallery__stage-media {
+  border-radius: 18px; overflow: hidden; background: var(--surface); border: 1px solid var(--line);
+  display: grid; place-items: center; aspect-ratio: 4 / 3;
+}
+.gallery__stage-media img, .gallery__stage-media video { width: 100%; height: 100%; object-fit: contain; }
+.gallery__stage-media.is-contain img { padding: 6%; }
+/* Art is shown whole (no crop), centered in its frame */
+body.acc #panel-art .gallery__stage-media img,
+body.acc #panel-art .gallery__stage-media video { object-fit: contain; object-position: center; }
+/* Fixed-height caption so the featured frame never resizes between pieces */
+.gallery__stage-cap { display: flex; flex-direction: column; justify-content: center; gap: 3px; flex: none; min-height: 48px; }
+.gallery__stage-project { font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gallery__stage-title { font-family: var(--serif); font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Thumbnail picker */
+.gallery__thumbs { list-style: none; display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); align-content: start; }
+.gallery__thumb {
+  width: 100%; padding: 0; aspect-ratio: 1 / 1; cursor: pointer; display: block;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 10px; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.gallery__thumb:hover { border-color: var(--accent); }
+.gallery__thumb.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.gallery__thumb-media { display: block; width: 100%; height: 100%; }
+.gallery__thumb-el { width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+.gallery__thumb-el.is-contain { object-fit: contain; padding: 14%; }
+
+/* Lightbox overlay */
+.lightbox {
+  position: fixed; inset: 0; z-index: 1000; display: none;
+  align-items: center; justify-content: center; padding: clamp(18px, 5vw, 70px);
+  background: rgba(15, 11, 7, .87); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.lightbox.is-open { display: flex; }
+.lightbox__fig { display: flex; flex-direction: column; gap: 14px; max-width: min(1100px, 100%); max-height: 100%; margin: 0; }
+.lightbox__media { min-height: 0; display: flex; justify-content: center; }
+.lightbox__frame { border-radius: 16px; overflow: hidden; box-shadow: 0 40px 100px -30px rgba(0,0,0,.85); }
+.lightbox__frame.is-contain { padding: 3%; }
+.lightbox__frame img, .lightbox__frame video { display: block; max-width: 100%; max-height: 80vh; object-fit: contain; }
+.lightbox__cap { display: flex; flex-direction: column; gap: 4px; text-align: center; color: #f4eee1; }
+.lightbox__project { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.lightbox__title { font-family: var(--serif); font-size: 1.2rem; }
+.lightbox__close {
+  position: absolute; top: 20px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); color: #fff;
+  font-size: 1rem; cursor: pointer; transition: background .2s, border-color .2s;
+}
+.lightbox__close:hover { background: rgba(255,255,255,.2); border-color: #fff; }
+body.lightbox-open { overflow: hidden; }
 
 /* ============================================================
    DESIGN: brand & product work grid
@@ -418,6 +535,10 @@ html.lenis, html.lenis body { height: auto; }
   .hero__art { height: clamp(440px, 64vh, 560px); }
   .hero__art { max-width: 380px; margin: 0 auto; width: 100%; }
   .about__cols { grid-template-columns: 1fr; gap: 22px; }
+  .about__notes { margin-top: 28px; }
+  /* Projects: list on top, selected project's detail below */
+  body.acc #panel-work .work__panels { display: flex; flex-direction: column; gap: 18px; height: auto; }
+  body.acc #panel-work .workview { overflow: visible; }
   /* Accordion -> static stacked cards (no hover on touch) */
   .work__panels { height: auto; gap: 18px; }
   .panel { flex: none; min-height: 0; }
@@ -436,6 +557,230 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .status-dot, .hero__scroll span { animation: none; }
+  .status-dot, .hero__scroll span, .hero__hint span { animation: none; }
+  .acc-panel, .acc-panel__body { transition: none !important; }
   * { scroll-behavior: auto !important; }
+}
+
+/* ============================================================
+   ACCORDION: full-screen panels that collapse to labelled spines.
+   Desktop = horizontal columns; mobile = stacked rows.
+   ============================================================ */
+
+/* Hero hint that replaces the scroll cue */
+.hero__hint {
+  position: absolute; left: clamp(20px, 3vw, 48px); bottom: 24px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__hint span { display: inline-block; animation: nudge 1.6s ease-in-out infinite; }
+@keyframes nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+/* Spine cosmetics shared across breakpoints */
+.acc-spine {
+  background: var(--bg-2); border: none; cursor: pointer; color: var(--muted);
+  font-family: var(--sans); -webkit-tap-highlight-color: transparent;
+  transition: background .3s ease, color .3s ease;
+}
+.acc-spine:hover { color: var(--text); }
+.acc-panel.is-open > .acc-spine { color: var(--accent); }
+.acc-spine:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+.acc-spine__index { font-family: var(--serif); font-weight: 700; font-size: 1rem; }
+.acc-spine__label { font-size: 1rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ---- Desktop: horizontal accordion ---- */
+@media (min-width: 901px) {
+  body.acc { overflow: hidden; }
+
+  .accordion {
+    --spine-w: 66px; --n: 6;
+    display: flex; height: 100vh; width: 100vw; overflow: hidden;
+  }
+  .acc-panel {
+    position: relative; display: flex; flex: 0 0 var(--spine-w); min-width: 0;
+    overflow: hidden; border-right: 1px solid var(--line); background: var(--bg);
+    transition: flex-grow .6s cubic-bezier(.22,1,.36,1);
+  }
+  .acc-panel:last-child { border-right: none; }
+  .acc-panel.is-open { flex-grow: 1; }
+
+  .acc-spine {
+    flex: 0 0 var(--spine-w); width: var(--spine-w); height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 22px 0;
+  }
+  .acc-spine:hover { background: var(--surface); }
+  .acc-panel.is-open > .acc-spine { cursor: default; background: var(--bg); }
+  .acc-panel.is-open > .acc-spine:hover { background: var(--bg); }
+  .acc-spine__label { writing-mode: vertical-rl; transform: rotate(180deg); }
+
+  .acc-panel__body {
+    width: calc(100vw - var(--n) * var(--spine-w)); height: 100vh;
+    overflow-y: auto; overflow-x: hidden; padding-top: 64px;
+    opacity: 0; transition: opacity .45s ease .12s;
+  }
+  .acc-panel.is-open .acc-panel__body { opacity: 1; }
+  .acc-panel--hero .acc-panel__body { padding-top: 0; }
+
+  body.acc .acc-panel__body .section { padding: clamp(28px, 5vh, 60px) 0; }
+  /* Hero: no box frame; portrait sits flush on the bottom edge */
+  body.acc .acc-panel--hero .hero { min-height: 100vh; padding: 0; align-items: stretch; }
+  body.acc .acc-panel--hero .hero__box {
+    background: none; border: none; box-shadow: none; border-radius: 0; overflow: hidden;
+    display: flex; align-items: center; position: relative; height: auto; min-height: 0;
+    padding: 88px clamp(20px, 3vw, 56px) 0;
+  }
+  body.acc .acc-panel--hero .hero__box::after { display: none; }
+  body.acc .acc-panel--hero .hero__inner { max-width: 640px; position: relative; z-index: 2; }
+  body.acc .acc-panel--hero .hero__name { font-size: clamp(2.6rem, 4.8vw, 5rem); }
+  body.acc .acc-panel--hero .hero__role { font-size: clamp(1.1rem, 1.45vw, 1.5rem); max-width: 42ch; margin-top: 28px; }
+  body.acc .acc-panel--hero .hero__meta { font-size: .85rem; }
+  body.acc .acc-panel--hero .hero__links { margin-top: 34px; }
+  body.acc .acc-panel--hero .hero__links a { font-size: 1rem; }
+  body.acc .acc-panel--hero .hero__links .ico { width: 18px; height: 18px; }
+  body.acc .acc-panel--hero .hero__cv { font-size: 1rem; padding: 15px 30px; margin-top: 34px; }
+  /* Portrait pinned flush to the very bottom of the panel */
+  body.acc .acc-panel--hero .hero__art {
+    position: absolute; right: clamp(20px, 4vw, 90px); bottom: 0; margin: 0; z-index: 1;
+    height: min(82vh, 740px); width: auto;
+  }
+
+  /* Rails: drop the viewport-width edge bleed; it overflows inside a panel */
+  body.acc .art-rail {
+    margin: 0; padding: 30px clamp(20px, 6vw, 60px);
+    -webkit-mask-image: none; mask-image: none;
+  }
+  /* Projects: master–detail, filling one screen. List left, write-up right */
+  body.acc #panel-work .work { min-height: calc(100vh - 64px); display: flex; padding: clamp(14px, 3vh, 36px) 0; }
+  body.acc #panel-work .wrap { display: flex; flex-direction: column; width: 100%; min-height: 0; }
+  body.acc #panel-work .work__head { flex: none; margin-bottom: clamp(10px, 1.8vh, 18px); }
+  body.acc #panel-work .section__title { font-size: clamp(1.4rem, 2.4vw, 2.1rem); }
+  body.acc #panel-work .work__panels {
+    flex: 1 1 auto; height: auto; min-height: 0;
+    display: grid; grid-template-columns: minmax(250px, 32%) 1fr; gap: clamp(18px, 2vw, 34px);
+  }
+  body.acc #panel-work .worklist { min-height: 0; overflow-y: auto; }
+  /* Detail centres and fills the panel; scale tuned so even the longest fits */
+  body.acc #panel-work .workview { height: 100%; overflow-y: auto; justify-content: center; }
+  body.acc #panel-work .workview__img,
+  body.acc #panel-work .workview__initial { width: clamp(100px, 13vh, 148px); }
+  body.acc #panel-work .workview__name { font-size: clamp(1.6rem, 2.4vw, 2.3rem); }
+  body.acc #panel-work .workview__links { margin-top: 10px; }
+  body.acc #panel-work .workview__paras { margin-top: clamp(16px, 2.6vh, 30px); }
+  body.acc #panel-work .workview__paras p { font-size: clamp(1rem, 1.05vw, 1.12rem); line-height: 1.6; max-width: 68ch; }
+  body.acc #panel-work .workview__paras p + p { margin-top: .8em; }
+
+  /* Theme toggle docks just under the name-column's "00" index; name stays at the foot */
+  body.acc .nav { inset: 54px auto auto 0; width: 66px; justify-content: center; padding: 0; }
+  body.acc .theme-toggle { background: rgba(255,255,255,.10); border-color: rgba(247,241,230,.38); color: #f7f1e6; }
+  body.acc .theme-toggle:hover { color: #fff; border-color: #fff; }
+
+  /* About: centre the copy and let it breathe to fill the panel, no scroll */
+  body.acc #panel-about .about {
+    min-height: calc(100vh - 64px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(24px, 5vh, 64px) 0;
+  }
+  body.acc .about__lead { font-size: clamp(1.9rem, 3vw, 3.2rem); margin-bottom: clamp(28px, 4.5vh, 56px); max-width: 22ch; }
+  body.acc .about__cols { gap: clamp(40px, 5vw, 76px); max-width: 1040px; }
+  body.acc .about__cols p { font-size: clamp(1.05rem, 1.2vw, 1.2rem); line-height: 1.7; }
+  body.acc .about__notes { margin-top: clamp(34px, 5.5vh, 68px); max-width: 1040px; }
+  body.acc .about__notes p { font-size: clamp(1.05rem, 1.15vw, 1.18rem); line-height: 1.65; }
+  body.acc .about__notes p + p { margin-top: clamp(14px, 2vh, 24px); }
+
+  /* Art & Design galleries fill the panel; compact header, grid takes the rest */
+  body.acc #panel-art .art, body.acc #panel-design .art {
+    height: calc(100vh - 64px); overflow: hidden; display: flex; flex-direction: column;
+    padding: clamp(14px, 3vh, 36px) 0;
+  }
+  body.acc #panel-art .art__head, body.acc #panel-design .art__head { flex: none; margin-bottom: clamp(12px, 2vh, 22px); }
+  body.acc #panel-art .section__title, body.acc #panel-design .section__title { font-size: clamp(1.4rem, 2.4vw, 2.1rem); }
+  body.acc #panel-art .gallery, body.acc #panel-design .gallery {
+    flex: 1 1 auto; min-height: 0; flex-direction: row; gap: clamp(18px, 2vw, 32px);
+    width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 6vw;
+  }
+  /* Featured frame: a fixed-size square that never changes, whatever the piece */
+  body.acc #panel-art .gallery__stage, body.acc #panel-design .gallery__stage { flex: 0 0 auto; justify-content: center; align-items: center; min-width: 0; }
+  body.acc #panel-art .gallery__stage-media, body.acc #panel-design .gallery__stage-media {
+    flex: none; width: min(56vh, 520px); height: min(56vh, 520px); max-width: 100%; aspect-ratio: auto;
+  }
+  body.acc #panel-art .gallery__stage-cap, body.acc #panel-design .gallery__stage-cap { align-self: center; text-align: center; width: min(56vh, 520px); max-width: 100%; }
+  /* Thumbnails fill the remaining width */
+  body.acc #panel-art .gallery__thumbs, body.acc #panel-design .gallery__thumbs {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start;
+    grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  }
+
+  /* Experience & Education: everything fits in one frame, no scroll */
+  body.acc #panel-capabilities .caps {
+    height: calc(100vh - 64px); overflow: hidden; display: flex; flex-direction: column;
+    padding: clamp(14px, 3vh, 36px) 0;
+  }
+  body.acc #panel-capabilities .wrap { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+  body.acc #panel-capabilities .section__title { font-size: clamp(1.4rem, 2.4vw, 2.1rem); }
+  body.acc #panel-capabilities .caps__grid {
+    flex: 1 1 auto; min-height: 0; margin-top: clamp(10px, 1.8vh, 20px); gap: clamp(28px, 4vw, 5vw);
+    align-content: start;
+  }
+  body.acc #panel-capabilities .caps__sub { margin-bottom: 10px; }
+  body.acc #panel-capabilities .chips { gap: 8px; margin-bottom: clamp(14px, 2.2vh, 26px); }
+  body.acc #panel-capabilities .chip { padding: 7px 12px; font-size: .82rem; }
+  body.acc #panel-capabilities .path__item { padding: clamp(8px, 1.2vh, 14px) 0; }
+  body.acc #panel-capabilities .path__role { font-size: .98rem; }
+  body.acc #panel-capabilities .lang { margin-bottom: clamp(10px, 1.4vh, 16px); }
+  /* slim copyright tucked at the very bottom of the panel */
+  body.acc #panel-capabilities .siteft { flex: none; margin-top: auto; padding: 12px 0 0; border: none; background: none; }
+}
+
+/* ---- Mobile: vertical accordion (rows that expand downward) ---- */
+@media (max-width: 900px) {
+  .accordion { display: flex; flex-direction: column; }
+  .acc-panel { width: 100%; border-bottom: 1px solid var(--line); }
+  .acc-panel:last-child { border-bottom: none; }
+
+  .acc-spine {
+    display: flex; flex-direction: row; align-items: center; gap: 16px;
+    width: 100%; padding: 20px 6vw;
+  }
+  .acc-spine__label { writing-mode: horizontal-tb; transform: none; }
+  .acc-spine::after { content: "›"; margin-left: auto; font-size: 1.5rem; line-height: 1; transition: transform .3s ease; }
+  .acc-panel.is-open > .acc-spine::after { transform: rotate(90deg); }
+
+  .acc-panel__body {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height .55s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+  }
+  .acc-panel.is-open .acc-panel__body { max-height: 8000px; opacity: 1; }
+  .acc-panel--hero .hero__hint { display: none; }
+  /* Over content (not a teal spine), keep the toggle on the right */
+  body.acc .nav { justify-content: flex-end; }
+}
+
+/* Nav reduced to the lone theme toggle: transparent, no bar */
+body.acc .nav { background: transparent; border-bottom: none; }
+
+/* Open panels: drop the section tint so the content matches the top strip (no seam) */
+body.acc .work, body.acc .caps { background: transparent; }
+body.acc .nav.is-scrolled {
+  background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
+  border-bottom: none;
+}
+
+/* The name-spine: a distinguished title column (deep teal, serif) */
+.acc-panel--hero > .acc-spine,
+.acc-panel--hero.is-open > .acc-spine { background: var(--ink); color: #f7f1e6; }
+.acc-panel--hero .acc-spine__index { color: var(--gold); }
+.acc-spine__label--name {
+  font-family: var(--serif); font-weight: 600; letter-spacing: .01em;
+  text-transform: none; font-size: 1.2rem;
+}
+.acc-spine__label--name .accent { color: var(--accent); }
+
+/* Hovering the name column flips it to the opposite contrast, so the name,
+   number and toggle stay readable whether you're hovering it or not */
+body.acc .acc-panel--hero > .acc-spine:hover { background: var(--surface); color: var(--ink); }
+body.acc .acc-panel--hero > .acc-spine:hover .acc-spine__index { color: var(--accent); }
+body.acc:has(.acc-panel--hero > .acc-spine:hover) .theme-toggle {
+  background: var(--surface); border-color: var(--ink); color: var(--ink);
 }
