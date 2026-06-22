@@ -636,10 +636,28 @@ function initWork() {
   });
 }
 
+// The intro overlay animates purely in CSS; this just removes the node
+// once it's done (or after a safety timeout) so it can't trap clicks.
+function initIntro() {
+  const intro = document.getElementById("intro");
+  if (!intro) return;
+  let cleared = false;
+  const done = () => {
+    if (cleared) return;
+    cleared = true;
+    intro.remove();
+  };
+  intro.addEventListener("animationend", (e) => {
+    if (e.animationName === "introHide") done();
+  });
+  setTimeout(done, 2600);
+}
+
 // ============================================================
 //  BOOT
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
+  initIntro();
   renderWork();
   renderRail("art-rail", illustrations);
   renderRail("design-rail", design);

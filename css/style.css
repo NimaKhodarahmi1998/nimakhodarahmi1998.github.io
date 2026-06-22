@@ -784,3 +784,49 @@ body.acc .acc-panel--hero > .acc-spine:hover .acc-spine__index { color: var(--ac
 body.acc:has(.acc-panel--hero > .acc-spine:hover) .theme-toggle {
   background: var(--surface); border-color: var(--ink); color: var(--ink);
 }
+
+/* ============================================================
+   INTRO: the teal name-spine, full-screen on load, then it
+   rapidly collapses to the left to reveal the page.
+   Pure-CSS so it self-clears even if JS never runs.
+   ============================================================ */
+.intro {
+  --intro-w: 66px;                 /* matches desktop --spine-w */
+  position: fixed; top: 0; left: 0; height: 100vh; width: 100vw;
+  z-index: 9999; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink); color: #f7f1e6;
+  animation:
+    introCollapse 1.9s cubic-bezier(.22, 1, .36, 1) forwards,
+    introHide .35s ease 1.62s forwards;
+}
+.intro__name {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(2.2rem, 8vw, 6.5rem); letter-spacing: -.01em;
+  white-space: nowrap; will-change: opacity, transform;
+  animation:
+    introNameIn .6s cubic-bezier(.22, 1, .36, 1) .15s both,
+    introNameOut .3s ease 1.02s forwards;
+}
+.intro__name .accent { color: var(--accent); }
+
+@keyframes introCollapse {
+  0%, 56% { width: 100vw; }
+  100%    { width: var(--intro-w); }
+}
+@keyframes introHide {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+@keyframes introNameIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes introNameOut {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Don't sweep for users who prefer less motion: show the name briefly, then clear. */
+@media (prefers-reduced-motion: reduce) {
+  .intro { animation: introHide .3s ease 1s forwards; }
+  .intro__name { animation: introNameIn .4s ease both; }
+}
