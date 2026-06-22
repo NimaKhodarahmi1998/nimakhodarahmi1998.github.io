@@ -641,6 +641,14 @@ function initWork() {
 function initIntro() {
   const intro = document.getElementById("intro");
   if (!intro) return;
+  // On phones the spine is a bar across the top, so the overlay collapses
+  // upward into it — pin the end height to the real spine's height.
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    const spine = document.querySelector(".acc-panel--hero .acc-spine");
+    if (spine) {
+      intro.style.setProperty("--intro-h", Math.round(spine.getBoundingClientRect().height) + "px");
+    }
+  }
   let cleared = false;
   const done = () => {
     if (cleared) return;

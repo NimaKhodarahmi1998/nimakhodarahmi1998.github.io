@@ -825,6 +825,20 @@ body.acc:has(.acc-panel--hero > .acc-spine:hover) .theme-toggle {
   to { opacity: 0; transform: translateY(-10px); }
 }
 
+/* Phones: the hero spine is a bar across the top, so the overlay
+   collapses upward into it instead of left. */
+@media (max-width: 900px) {
+  .intro {
+    animation:
+      introCollapseTop 1.9s cubic-bezier(.22, 1, .36, 1) forwards,
+      introHide .35s ease 1.62s forwards;
+  }
+}
+@keyframes introCollapseTop {
+  0%, 56% { height: 100vh; }
+  100%    { height: var(--intro-h, 64px); }
+}
+
 /* Don't sweep for users who prefer less motion: show the name briefly, then clear. */
 @media (prefers-reduced-motion: reduce) {
   .intro { animation: introHide .3s ease 1s forwards; }
